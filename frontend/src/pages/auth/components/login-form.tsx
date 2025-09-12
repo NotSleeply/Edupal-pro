@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { login } from "@/modules/auth"; // 假设 login 是你从 Redux 获取的登录 action
 import { useState } from "react";
 import { useAppDispatch } from "@/modules/stores"; // 假设你有一个自定义的 hook 来获取 dispatch
-import { toast } from "sonner"
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 export function LoginForm({
@@ -14,16 +14,17 @@ export function LoginForm({
 }: React.ComponentPropsWithoutRef<"form">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState(""); // 默认为空，去掉“角色”默认值
   const dispatch = useAppDispatch(); // 获取 dispatch
   const navigate = useNavigate(); // 使用 useNavigate 进行页面跳转
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // 防止表单默认刷新页面
     try {
-      await dispatch(login({ account: email, password })).unwrap();
+      await dispatch(login({ account: email, password, role })).unwrap();
       navigate("/dashboard"); // 跳转到首页
     } catch (e) {
-      toast("登录失败，请检查您的邮箱和密码")
+      toast("登录失败，请检查您的邮箱和密码");
     }
   };
 
@@ -33,12 +34,38 @@ export function LoginForm({
       {...props}
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">登录到您的账户</h1>
-        <p className="text-balance text-sm text-muted-foreground">
-          输入您的邮箱以登录账户
-        </p>
+      <div className="flex justify-between items-center">
+        <div className="flex flex-col items-center gap-2 text-center">
+          <h1 className="text-2xl font-bold">登录到您的账户</h1>
+          <p className="text-balance text-sm text-muted-foreground">
+            输入您的邮箱以登录账户
+          </p>
+        </div>
+
+        {/* 角色选择框：右上角显示，点击选择“学生”或“教师” */}
+        <div className="flex justify-end">
+          <select
+            id="role"
+            value={role}
+            onChange={(e) => setRole(e.target.value)} // 更新角色状态
+            className="border rounded-md p-2 text-sm"
+          >
+            {/* 如果没有选中角色时，默认显示“角色” */}
+            {role === "" && <option value="" disabled>角色</option>}
+            <option value="学生">学生</option>
+            <option value="教师">教师</option>
+          </select>
+        </div>
       </div>
+
+      <Button
+        type="button"
+        className="w-full mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold"
+        onClick={() => navigate("/student-new")}
+      >
+        进入 student-new
+      </Button>
+
       <div className="grid gap-6">
         <div className="grid gap-2">
           <Label htmlFor="email">邮箱</Label>
@@ -69,9 +96,11 @@ export function LoginForm({
             required
           />
         </div>
+
         <Button type="submit" className="w-full">
           登录
         </Button>
+
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
           <span className="relative z-10 bg-background px-2 text-muted-foreground">
             或继续使用

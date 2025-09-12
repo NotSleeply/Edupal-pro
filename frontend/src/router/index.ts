@@ -30,6 +30,10 @@ const routers = [
     path: "/testpaper/detail",
     component: lazy(() => import("@/pages/testpaper-detail")), // 使用懒加载
   },
+  {
+    path: "/student-new",
+    component: lazy(() => import("@/pages/student-new")), // 新增 student-new 页面路由
+  },
 ];
 
 export default routers;

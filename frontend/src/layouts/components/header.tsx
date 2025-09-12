@@ -46,8 +46,14 @@ const Header = () => {
                 >
                   题库
                 </Link>
+                <Link
+                  to="/student-new"
+                  className="text-sm font-semibold text-blue-500 hover:text-blue-700 transition-colors hover:underline underline-offset-4"
+                >
+                  student-new
+                </Link>
               </nav>
-
+              
               <div className="ml-4 flex items-center gap-2 relative">
                 <Avatar
                   className="h-8 w-8 rounded-full cursor-pointer"
