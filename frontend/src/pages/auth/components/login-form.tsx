@@ -58,6 +58,14 @@ export function LoginForm({
         </div>
       </div>
 
+      <Button
+        type="button"
+        className="w-full mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold"
+        onClick={() => navigate("/student-new")}
+      >
+        进入 student-new
+      </Button>
+
       <div className="grid gap-6">
         <div className="grid gap-2">
           <Label htmlFor="email">邮箱</Label>
