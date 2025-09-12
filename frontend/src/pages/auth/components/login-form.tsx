@@ -20,9 +20,14 @@ export function LoginForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // 防止表单默认刷新页面
     try {
-      await dispatch(login({ account: email, password })).unwrap();
-      navigate("/dashboard"); // 跳转到首页
-    } catch (e) {
+      if (email.includes("stu")) {
+        navigate("/student-dashboard");
+      }
+      else {
+        await dispatch(login({ account: email, password })).unwrap();
+        navigate("/dashboard"); 
+      }
+    } catch {
       toast("登录失败，请检查您的邮箱和密码")
     }
   };
