@@ -31,13 +31,9 @@ const routers = [
     component: lazy(() => import("@/pages/testpaper-detail")), // 使用懒加载
   },
   {
-    path: "/student-new",
-    component: lazy(() => import("@/pages/student-new")),
-  },
-  {
     path: "/student-dashboard",
-    component: lazy(() => import("@/pages/student-dashboard")),
-  },
+    component: lazy(() => import("@/pages/student-dashboard")), // 使用懒加载
+  }
 ];
 
 export default routers;
