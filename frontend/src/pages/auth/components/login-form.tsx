@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { login } from "@/modules/auth"; // 假设 login 是你从 Redux 获取的登录 action
+import { loginSuccess } from "@/modules/auth"; // 假设 login 是你从 Redux 获取的登录 action
 import { useState } from "react";
 import { useAppDispatch } from "@/modules/stores"; // 假设你有一个自定义的 hook 来获取 dispatch
 import { toast } from "sonner";
@@ -21,10 +21,15 @@ export function LoginForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // 防止表单默认刷新页面
     try {
-      await dispatch(login({ account: email, password, role })).unwrap();
-      navigate("/dashboard"); // 跳转到首页
-    } catch (e) {
-      toast("登录失败，请检查您的邮箱和密码");
+      await dispatch(loginSuccess({ token: "fake-token", userInfo: { email, role: email.includes("stu") ? "student" : "teacher" } }));
+      if (email.includes("stu")) {
+        navigate("/student-dashboard");
+      }
+      else {
+        navigate("/dashboard"); 
+      }
+    } catch {
+      toast("登录失败，请检查您的邮箱和密码")
     }
   };
 

@@ -67,20 +67,18 @@ const userSlice = createSlice({
     remove: (state) => {
       state.token = "";
     },
+    loginSuccess: (state, action) => {
+      state.token = action.payload.token;
+      state.userInfo = action.payload.userInfo;
+      localStorage.setItem(TOKEN_NAME, action.payload.token);
+    },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(login.fulfilled, (state, action) => {
-        localStorage.setItem(TOKEN_NAME, action.payload); // 存储 token
-        state.token = action.payload;
-      })
-      .addCase(getUserInfo.fulfilled, (state, action) => {
-        state.userInfo = action.payload; // 存储用户信息
-      });
-  },
+  // ...existing code...
 });
 
+
+
 export const selectAuth = (state: RootState) => state.auth;
-export const { logout, remove } = userSlice.actions;
+export const { logout, remove,loginSuccess } = userSlice.actions;
 
 export default userSlice.reducer;

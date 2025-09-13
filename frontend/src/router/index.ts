@@ -32,7 +32,11 @@ const routers = [
   },
   {
     path: "/student-new",
-    component: lazy(() => import("@/pages/student-new")), // 新增 student-new 页面路由
+    component: lazy(() => import("@/pages/student-new")),
+  },
+  {
+    path: "/student-dashboard",
+    component: lazy(() => import("@/pages/student-dashboard")),
   },
 ];
 
