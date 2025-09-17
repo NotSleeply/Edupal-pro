@@ -1,7 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-// 题目数据结构：按科目和题目类型分类
-const questionBank = {
+type Question = {
+  id: number;
+  question: string;
+  options?: string[];
+  answer: string;
+  type: string;
+};
+const questionBank: Record<string, Question[]> = {
   语文: [
     {
       id: 1,
@@ -443,33 +450,48 @@ const StudentDashboard: React.FC = () => {
   const [timeWarning, setTimeWarning] = useState(false); 
 
   const [subject, setSubject] = useState("语文"); 
-  const [questions, setQuestions] = useState(questionBank[subject]); 
+  const [questions, setQuestions] = useState<Question[]>(questionBank[subject]);
+  const navigate = useNavigate();
  
-  useEffect(() => { 
-    setQuestions(questionBank[subject]); 
-    setCurrent(0); 
-    setScore(0); 
-    setFinished(false); 
-  }, [subject]); 
+  useEffect(() => {
+    setQuestions(questionBank[subject]);
+    setCurrent(0);
+    setScore(0);
+    setFinished(false);
+  }, [subject]);
  
-  useEffect(() => { 
-    if (current < questions.length && !finished) { 
-      const interval = setInterval(() => { 
-        setTimer((prev) => { 
-          if (prev === 1) { 
-            clearInterval(interval); 
-            handleNext(); 
-            return 30; 
-          } 
-          if (prev <= 10 && !timeWarning) { 
-            setTimeWarning(true); 
-          } 
-          return prev - 1; 
-        }); 
-      }, 1000); 
-      return () => clearInterval(interval); 
-    } 
-  }, [current, finished, timeWarning, questions]); 
+  const handleNext = useCallback(() => {
+    if (selected === questions[current].answer) {
+      setScore(score + 1);
+    }
+    setSelected(null);
+    setAnswerStatus(null);
+    setTimeWarning(false);
+    if (current < questions.length - 1) {
+      setCurrent(current + 1);
+    } else {
+      setFinished(true);
+    }
+  }, [selected, questions, current, score]);
+
+  useEffect(() => {
+    if (current < questions.length && !finished) {
+      const interval = setInterval(() => {
+        setTimer((prev) => {
+          if (prev === 1) {
+            clearInterval(interval);
+            handleNext();
+            return 30;
+          }
+          if (prev <= 10 && !timeWarning) {
+            setTimeWarning(true);
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [current, finished, timeWarning, questions, handleNext]);
  
   const handleOptionClick = (option: string) => { 
     if (!selected) { 
@@ -482,19 +504,7 @@ const StudentDashboard: React.FC = () => {
     } 
   }; 
  
-  const handleNext = () => { 
-    if (selected === questions[current].answer) { 
-      setScore(score + 1); 
-    } 
-    setSelected(null); 
-    setAnswerStatus(null); 
-    setTimeWarning(false); 
-    if (current < questions.length - 1) { 
-      setCurrent(current + 1); 
-    } else { 
-      setFinished(true); 
-    } 
-  }; 
+  // ...已由 useCallback 版本实现...
  
   const handleSkip = () => { 
     setSelected(null); 
@@ -538,16 +548,19 @@ const StudentDashboard: React.FC = () => {
         className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale" 
       /> 
 
-<div className="absolute top-4 right-4">
-  <button
-    className="relative cursor-pointer transition-all duration-300 hover:scale-105"
-    style={{
-      border: 'none',
-      background: 'none',
-      padding: '10px',
-      margin: '0',
-    }}
-  >
+ {/* 3. PK按钮：添加onClick事件，调用navigate跳转 */}
+      <div className="absolute top-4 right-4">
+        <button
+          className="relative cursor-pointer transition-all duration-300 hover:scale-105"
+          style={{
+            border: 'none',
+            background: 'none',
+            padding: '10px',
+            margin: '0',
+          }}
+          // 核心：点击跳转到pk.tsx对应的路由路径
+          onClick={() => navigate('/student-dashboard/pk')}
+        >
     {/* 火苗SVG图形 */}
     <svg
       width="80"
@@ -606,31 +619,31 @@ const StudentDashboard: React.FC = () => {
  
           {questions[current].type === "选择题" && ( 
             <div className="grid gap-2 mb-4"> 
-              {questions[current].options?.map((option) => ( 
-                <button 
-                  key={option} 
-                  className={`px-4 py-2 rounded border ${selected === option ? 'bg-blue-100 border-blue-500' : 'border-gray-300'} ${selected ? 'cursor-not-allowed' : ''}`} 
-                  onClick={() => handleOptionClick(option)} 
-                  disabled={!!selected} 
-                > 
-                  {option} 
-                </button> 
-              ))} 
+              {questions[current].options?.map((option: string) => (
+                <button
+                  key={option}
+                  className={`px-4 py-2 rounded border ${selected === option ? 'bg-blue-100 border-blue-500' : 'border-gray-300'} ${selected ? 'cursor-not-allowed' : ''}`}
+                  onClick={() => handleOptionClick(option)}
+                  disabled={!!selected}
+                >
+                  {option}
+                </button>
+              ))}
             </div> 
           )} 
  
           {questions[current].type === "判断题" && ( 
             <div className="grid gap-2 mb-4"> 
-              {["是", "不是"].map((option) => ( 
-                <button 
-                  key={option} 
-                  className={`px-4 py-2 rounded border ${selected === option ? 'bg-blue-100 border-blue-500' : 'border-gray-300'} ${selected ? 'cursor-not-allowed' : ''}`} 
-                  onClick={() => handleOptionClick(option)} 
-                  disabled={!!selected} 
-                > 
-                  {option} 
-                </button> 
-              ))} 
+              {["是", "不是"].map((option: string) => (
+                <button
+                  key={option}
+                  className={`px-4 py-2 rounded border ${selected === option ? 'bg-blue-100 border-blue-500' : 'border-gray-300'} ${selected ? 'cursor-not-allowed' : ''}`}
+                  onClick={() => handleOptionClick(option)}
+                  disabled={!!selected}
+                >
+                  {option}
+                </button>
+              ))}
             </div> 
           )} 
  
@@ -675,13 +688,13 @@ const StudentDashboard: React.FC = () => {
  
           <div className="mt-4"> 
             <h3 className="font-semibold mb-2">答题回顾</h3> 
-            {questions.map((question, index) => ( 
-              <div key={index} className="mb-2"> 
-                <p>{question.question}</p> 
-                <p>你的答案：{selected === question.answer ? "正确" : "错误"}</p> 
-                <p>正确答案：{question.answer}</p> 
-              </div> 
-            ))} 
+            {questions.map((question: Question, index: number) => (
+              <div key={index} className="mb-2">
+                <p>{question.question}</p>
+                <p>你的答案：{selected === question.answer ? "正确" : "错误"}</p>
+                <p>正确答案：{question.answer}</p>
+              </div>
+            ))}
           </div> 
         </div> 
       )} 
