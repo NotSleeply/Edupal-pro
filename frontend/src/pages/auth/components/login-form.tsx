@@ -14,7 +14,7 @@ export function LoginForm({
 }: React.ComponentPropsWithoutRef<"form">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState(""); // 默认为空，去掉“角色”默认值
+  // 移除角色相关状态
   const dispatch = useAppDispatch(); // 获取 dispatch
   const navigate = useNavigate(); // 使用 useNavigate 进行页面跳转
 
@@ -47,20 +47,7 @@ export function LoginForm({
           </p>
         </div>
 
-        {/* 角色选择框：右上角显示，点击选择“学生”或“教师” */}
-        <div className="flex justify-end">
-          <select
-            id="role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)} // 更新角色状态
-            className="border rounded-md p-2 text-sm"
-          >
-            {/* 如果没有选中角色时，默认显示“角色” */}
-            {role === "" && <option value="" disabled>角色</option>}
-            <option value="学生">学生</option>
-            <option value="教师">教师</option>
-          </select>
-        </div>
+        {/* 角色选择框已移除 */}
       </div>
 
       <div className="grid gap-6">
