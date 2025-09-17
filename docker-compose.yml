@@ -1,0 +1,73 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../deploy/prod/dockerfile.frontend
+    working_dir: /app
+    ports:
+      - "5174:80"
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../deploy/prod/dockerfile.backend
+    command:
+      [
+        "/app/.venv/bin/uvicorn",
+        "app.main:app",
+        "--host", "0.0.0.0",
+        "--port", "8000"
+      ]
+    environment:
+      - SECRET_KEY=edupal
+      - EXPIRE_DAYS=7
+      - DATABASE_URL=mysql+pymysql://edupal:edupal@edupal_mysql:3306/edupal
+      - RABBITMQ_URL=amqp://user:password@edupal_rabbitmq:5672/
+      - api_key=your_api_key
+      - base_url=http://localhost:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - edupal_mysql
+      - edupal_rabbitmq
+    restart: on-failure
+
+  agent:
+    build:
+      context: ./agent
+      dockerfile: ../deploy/prod/dockerfile.agent
+    environment:
+      - DATABASE_URL=edupal:edupal@tcp(edupal_mysql:3306)/edupal?charset=utf8mb4&parseTime=True&loc=Local
+      - RABBITMQ_URL=amqp://user:password@edupal_rabbitmq:5672/
+      - api_key=your_api_key
+      - base_url=http://localhost:8000
+    depends_on:
+      - edupal_mysql
+      - edupal_rabbitmq
+    restart: on-failure
+
+  edupal_mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_USER: edupal
+      MYSQL_PASSWORD: edupal
+      MYSQL_DATABASE: edupal
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+  edupal_rabbitmq:
+    image: rabbitmq:management
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    ports:
+      - "15672:15672"
+    restart: always
+
+volumes:
+  mysql_data:
