@@ -1,7 +1,6 @@
 import React from "react";
 import Content from "@/layouts/components/approuter";
 import Header from "@/layouts/components/header";
-import Footer from "@/layouts/components/footer";
 import { Layout } from "@/modules/global";
 // 顶部布局（TopLayout）：包括 Header、Content 和 Footer
 export const TopLayout = React.memo(() => (
@@ -10,7 +9,6 @@ export const TopLayout = React.memo(() => (
     <main className="flex-1">
       <Content />
     </main>
-    <Footer />
   </div>
 ));
 
@@ -41,7 +39,6 @@ const MixLayout = React.memo(() => (
         <Content />
       </div>
     </main>
-    <Footer />
   </div>
 ));
 
