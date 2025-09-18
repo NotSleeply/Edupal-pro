@@ -34,6 +34,13 @@ const Header = () => {
           {isLoggedIn ? (
             <>
               <nav className="ml-auto flex gap-4 sm:gap-6">
+                {/* 在"我的"左侧添加PK选项，保持相同样式 */}
+                <Link
+                  to="/student-dashboard/pk"
+                  className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors hover:underline underline-offset-4"
+                >
+                  PK
+                </Link>
                 <Link
                   to="/dashboard"
                   className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors hover:underline underline-offset-4"
