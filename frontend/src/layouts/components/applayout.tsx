@@ -10,7 +10,6 @@ export const TopLayout = React.memo(() => (
     <main className="flex-1">
       <Content />
     </main>
-    <Footer />
   </div>
 ));
 
