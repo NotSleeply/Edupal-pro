@@ -331,13 +331,7 @@ const PkPage: React.FC = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col">
-      {/* 背景图 */}
-      <img
-        src="https://api.kdcc.cn"
-        alt="背景图片"
-        className="absolute inset-0 h-full w-full object-cover opacity-20"
-      />
-
+    
       {/* 顶部导航 */}
       <div className="relative z-10 bg-white/80 backdrop-blur-sm shadow-sm py-4 px-6 flex justify-between items-center">
         <button

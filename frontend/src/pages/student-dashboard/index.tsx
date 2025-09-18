@@ -440,266 +440,353 @@ const questionBank: Record<string, Question[]> = {
     }
 ]
 };
-const StudentDashboard: React.FC = () => { 
-  const [current, setCurrent] = useState(0); 
-  const [selected, setSelected] = useState<string | null>(null); 
-  const [score, setScore] = useState(0); 
-  const [finished, setFinished] = useState(false); 
-  const [timer, setTimer] = useState(30); 
-  const [answerStatus, setAnswerStatus] = useState<"correct" | "incorrect" | null>(null); 
-  const [timeWarning, setTimeWarning] = useState(false); 
 
-  const [subject, setSubject] = useState("语文"); 
+const StudentDashboard: React.FC = () => {
+  const [score, setScore] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
+  const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
+  const [subject, setSubject] = useState("语文");
   const [questions, setQuestions] = useState<Question[]>(questionBank[subject]);
   const navigate = useNavigate();
- 
+
+  // 当选择不同学科时重置状态
   useEffect(() => {
     setQuestions(questionBank[subject]);
-    setCurrent(0);
+    setSelectedAnswers({});
     setScore(0);
-    setFinished(false);
+    setSubmitted(false);
   }, [subject]);
- 
-  const handleNext = useCallback(() => {
-    if (selected === questions[current].answer) {
-      setScore(score + 1);
-    }
-    setSelected(null);
-    setAnswerStatus(null);
-    setTimeWarning(false);
-    if (current < questions.length - 1) {
-      setCurrent(current + 1);
-    } else {
-      setFinished(true);
-    }
-  }, [selected, questions, current, score]);
 
-  useEffect(() => {
-    if (current < questions.length && !finished) {
-      const interval = setInterval(() => {
-        setTimer((prev) => {
-          if (prev === 1) {
-            clearInterval(interval);
-            handleNext();
-            return 30;
-          }
-          if (prev <= 10 && !timeWarning) {
-            setTimeWarning(true);
-          }
-          return prev - 1;
-        });
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [current, finished, timeWarning, questions, handleNext]);
- 
-  const handleOptionClick = (option: string) => { 
-    if (!selected) { 
-      setSelected(option); 
-      if (option === questions[current].answer) { 
-        setAnswerStatus("correct"); 
-      } else { 
-        setAnswerStatus("incorrect"); 
-      } 
-    } 
-  }; 
- 
-  // ...已由 useCallback 版本实现...
- 
-  const handleSkip = () => { 
-    setSelected(null); 
-    setAnswerStatus(null); 
-    setTimeWarning(false); 
-    if (current < questions.length - 1) { 
-      setCurrent(current + 1); 
-    } else { 
-      setFinished(true); 
-    } 
-  }; 
- 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => { 
-    setSelected(e.target.value); 
-  }; 
- 
-  return ( 
-    <div className="relative min-h-screen flex flex-col"> 
-      <div className="absolute top-4 left-4 z-10"> 
+  // 处理选择题和判断题的选项点击
+  const handleOptionClick = (questionId: number, option: string) => {
+    setSelectedAnswers(prev => ({
+      ...prev,
+      [questionId]: option
+    }));
+  };
+
+  // 处理填空题和计算题的输入变化
+  const handleInputChange = (questionId: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedAnswers(prev => ({
+      ...prev,
+      [questionId]: e.target.value
+    }));
+  };
+
+  // 提交答案并计算得分
+  const handleSubmit = () => {
+    const newScore = questions.reduce((acc, question) => {
+      return selectedAnswers[question.id] === question.answer ? acc + 1 : acc;
+    }, 0);
+    setScore(newScore);
+    setSubmitted(true);
+  };
+
+  // 重置答题
+  const handleReset = () => {
+    setSelectedAnswers({});
+    setScore(0);
+    setSubmitted(false);
+  };
+
+  return (
+    <div className="student-dashboard">
+      {/* 左上角的学科选择框 */}
+      <div className="subject-selection">
+        <h2>选择学科</h2>
         <select 
           value={subject} 
-          onChange={(e) => setSubject(e.target.value)} 
-          className="px-4 py-2 border rounded bg-white" 
-        > 
-          <option value="语文">语文</option> 
-          <option value="数学">数学</option> 
-          <option value="英语">英语</option> 
-          <option value="物理">物理</option> 
-          <option value="化学">化学</option> 
-          <option value="生物">生物</option> 
-          <option value="地理">地理</option> 
-          <option value="历史">历史</option> 
-          <option value="政治">政治</option> 
-          <option value="科学">科学</option> 
-        </select> 
-      </div> 
-
-      <img 
-        src="https://api.kdcc.cn" 
-        alt="背景图片" 
-        className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale" 
-      /> 
-
- {/* 3. PK按钮：添加onClick事件，调用navigate跳转 */}
-      <div className="absolute top-4 right-4">
-        <button
-          className="relative cursor-pointer transition-all duration-300 hover:scale-105"
-          style={{
-            border: 'none',
-            background: 'none',
-            padding: '10px',
-            margin: '0',
-          }}
-          // 核心：点击跳转到pk.tsx对应的路由路径
-          onClick={() => navigate('/student-dashboard/pk')}
+          onChange={(e) => setSubject(e.target.value)}
+          className="subject-select px-4 py-2 border border-black rounded bg-white text-black"
         >
-    {/* 火苗SVG图形 */}
-    <svg
-      width="80"
-      height="80"
-      viewBox="0 0 100 120"
-      className="transition-all duration-500 hover:filter hover:drop-shadow-[0_0_8px_rgba(255,102,0,0.8)]"
-    >
-      {/* 火苗底部 */}
-      <path
-        d="M50,110 C30,110 20,90 20,70 C20,40 40,10 50,10 C60,10 80,40 80,70 C80,90 70,110 50,110 Z"
-        fill="#FF6600"
-        style={{ animation: 'pulse 2s infinite' }}
-      />
-      {/* 火苗中部 */}
-      <path
-        d="M50,90 C35,90 30,60 30,45 C30,25 45,5 50,5 C55,5 70,25 70,45 C70,60 65,90 50,90 Z"
-        fill="#FF9900"
-        style={{ animation: 'pulse 1.5s infinite' }}
-      />
-      {/* 火苗顶部 */}
-      <path
-        d="M50,60 C40,60 35,35 35,25 C35,15 45,5 50,5 C55,5 65,15 65,25 C65,35 60,60 50,60 Z"
-        fill="#FFCC00"
-        style={{ animation: 'pulse 1s infinite' }}
-      />
-    </svg>
+          <option value="语文">语文</option>
+          <option value="数学">数学</option>
+          <option value="英语">英语</option>
+          <option value="物理">物理</option>
+          <option value="化学">化学</option>
+          <option value="生物">生物</option>
+          <option value="地理">地理</option>
+          <option value="历史">历史</option>
+          <option value="政治">政治</option>
+          <option value="科学">科学</option>
+        </select>
+      </div>
 
-    {/* PK文字 */}
-    <span
-      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold text-white text-lg tracking-wider"
-      style={{
-        textShadow: '0 1px 2px rgba(0,0,0,0.3)',
-        pointerEvents: 'none',
-      }}
-    >
-      PK
-    </span>
-  </button>
-</div>
+      <div className="fullscreen-questions">
+        {!submitted ? (
+          <>
+            <h2>{subject} - 答题区</h2>
+            {/* 垂直滚动的答题区 */}
+            <div className="questions-container">
+              {questions.map((question, index) => (
+                <div key={question.id} className="question-card">
+                  <h3>题目 {index + 1}：{question.question}</h3>
+                  
+                  {question.type === "选择题" && (
+                    <div className="options">
+                      {question.options?.map(option => (
+                        <button
+                          key={option}
+                          onClick={() => handleOptionClick(question.id, option)}
+                          disabled={submitted}
+                          className={`option-btn ${selectedAnswers[question.id] === option ? 'selected' : ''}`}
+                        >
+                          {option}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {question.type === "判断题" && (
+                    <div className="options">
+                      {["是", "不是"].map(option => (
+                        <button
+                          key={option}
+                          onClick={() => handleOptionClick(question.id, option)}
+                          disabled={submitted}
+                          className={`option-btn ${selectedAnswers[question.id] === option ? 'selected' : ''}`}
+                        >
+                          {option}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {(question.type === "填空题" || question.type === "计算题") && (
+                    <input
+                      type="text"
+                      value={selectedAnswers[question.id] || ""}
+                      onChange={(e) => handleInputChange(question.id, e)}
+                      disabled={submitted}
+                      placeholder="请输入答案..."
+                      className="answer-input"
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+            
+            <button 
+              onClick={handleSubmit} 
+              className="submit-btn px-6 py-3 text-white rounded-lg"
+            >
+              提交答案
+            </button>
+          </>
+        ) : (
+          <div className="results-section">
+            <h2>答题结束！</h2>
+            <div className="score-display">
+              你的得分：{score} / {questions.length}
+            </div>
+            
+            <div className="answer-review">
+              <h3>答题回顾</h3>
+              {questions.map((question, index) => (
+                <div key={question.id} className="review-item">
+                  <p><strong>题目 {index + 1}：</strong>{question.question}</p>
+                  <p>
+                    <strong>你的答案：</strong>
+                    {selectedAnswers[question.id] || "未作答"}
+                    {selectedAnswers[question.id] === question.answer ? (
+                      <span className="correct-mark"> ✔️ 正确</span>
+                    ) : selectedAnswers[question.id] ? (
+                      <span className="incorrect-mark"> ❌ 错误</span>
+                    ) : null}
+                  </p>
+                  <p><strong>正确答案：</strong>{question.answer}</p>
+                </div>
+              ))}
+            </div>
+            
+            <div className="action-buttons">
+              <button 
+                onClick={handleReset} 
+                className="reset-btn px-6 py-3 text-white rounded-lg mr-4"
+              >
+                重新答题
+              </button>
+              <button 
+                onClick={() => navigate('/')} 
+                className="home-btn px-6 py-3 text-white rounded-lg"
+              >
+                返回首页
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
 
-      {!finished ? ( 
-        <div className="bg-white rounded shadow p-6 opacity-90 max-w-xl w-full mx-auto self-center mt-20"> 
-          <div className="mb-4"> 
-            <progress value={current + 1} max={questions.length} className="w-full" /> 
-            <div className="text-sm text-right">{current + 1} / {questions.length}</div> 
-          </div> 
- 
-          <div className="mb-4 font-semibold"> 
-            题目 {current + 1}：{questions[current].question} 
-          </div> 
- 
-          <div className="text-sm mb-2"> 
-            剩余时间：{timer}秒 
-            {timeWarning && <span className="text-red-500 ml-2">时间快到了！</span>} 
-          </div> 
- 
-          {questions[current].type === "选择题" && ( 
-            <div className="grid gap-2 mb-4"> 
-              {questions[current].options?.map((option: string) => (
-                <button
-                  key={option}
-                  className={`px-4 py-2 rounded border ${selected === option ? 'bg-blue-100 border-blue-500' : 'border-gray-300'} ${selected ? 'cursor-not-allowed' : ''}`}
-                  onClick={() => handleOptionClick(option)}
-                  disabled={!!selected}
-                >
-                  {option}
-                </button>
-              ))}
-            </div> 
-          )} 
- 
-          {questions[current].type === "判断题" && ( 
-            <div className="grid gap-2 mb-4"> 
-              {["是", "不是"].map((option: string) => (
-                <button
-                  key={option}
-                  className={`px-4 py-2 rounded border ${selected === option ? 'bg-blue-100 border-blue-500' : 'border-gray-300'} ${selected ? 'cursor-not-allowed' : ''}`}
-                  onClick={() => handleOptionClick(option)}
-                  disabled={!!selected}
-                >
-                  {option}
-                </button>
-              ))}
-            </div> 
-          )} 
- 
-       {questions[current].type === "填空题" || questions[current].type === "计算题" ? ( 
-  <div className="mb-4"> 
-    <input 
-      type="text"  // 统一为text类型，支持中文/英文/数字/符号
-      className="w-full px-4 py-2 border rounded" 
-      onChange={handleInputChange} 
-      // 移除disabled属性，允许持续输入
-      value={selected || ''}  // 增加value绑定，确保输入值与状态同步（可选但推荐）
-      placeholder={questions[current].type === "填空题" ? "请输入答案" : "请输入计算结果"} 
-    /> 
-  </div> 
-) : null}
- 
-          <div className={answerStatus === "correct" ? "text-green-500" : answerStatus === "incorrect" ? "text-red-500" : ""}> 
-            {answerStatus === "correct" ? "正确!" : answerStatus === "incorrect" ? "错误!" : ""} 
-          </div> 
- 
-          <div className="flex justify-between mt-4"> 
-            <button 
-              className="px-4 py-2 bg-gray-500 text-white rounded w-1/3" 
-              onClick={handleSkip} 
-            > 
-              跳过 
-            </button> 
- 
-            <button 
-              className="px-4 py-2 bg-blue-500 text-white rounded w-1/3" 
-              onClick={handleNext} 
-              disabled={!selected} 
-            > 
-              {current < questions.length - 1 ? '下一题' : '提交'} 
-            </button> 
-          </div> 
-        </div> 
-      ) : ( 
-        <div className="bg-white rounded shadow p-6 text-center opacity-90 max-w-xl w-full mx-auto self-center mt-20"> 
-          <div className="text-xl mb-2">答题结束！</div> 
-          <div>你的得分：{score} / {questions.length}</div> 
- 
-          <div className="mt-4"> 
-            <h3 className="font-semibold mb-2">答题回顾</h3> 
-            {questions.map((question: Question, index: number) => (
-              <div key={index} className="mb-2">
-                <p>{question.question}</p>
-                <p>你的答案：{selected === question.answer ? "正确" : "错误"}</p>
-                <p>正确答案：{question.answer}</p>
-              </div>
-            ))}
-          </div> 
-        </div> 
-      )} 
-    </div> 
-  ); 
-}; 
- 
+      <style jsx>{`
+        .student-dashboard {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
+          min-height: 100vh;
+        }
+        
+        /* 左上角的学科选择框 */
+        .subject-selection {
+          margin-bottom: 30px;
+          text-align: left;
+          display: flex;
+          align-items: center;
+          gap: 15px;
+        }
+        
+        .subject-selection h2 {
+          margin: 0;
+        }
+        
+        .subject-select {
+          font-size: 16px;
+          border: 1px solid #333;
+        }
+        
+        .fullscreen-questions {
+          background-color: #f5f5f5;
+          padding: 20px;
+          border-radius: 10px;
+        }
+        
+        /* 垂直滚动的答题区 */
+        .questions-container {
+          margin-bottom: 30px;
+        }
+        
+        /* 单个题目卡片 */
+        .question-card {
+          background-color: white;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          margin-bottom: 25px;
+          max-width: 800px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        
+        .options {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-top: 15px;
+        }
+        
+        /* 选项按钮 - 黑白风格 */
+        .option-btn {
+          padding: 10px;
+          border: 1px solid #999;
+          border-radius: 4px;
+          background-color: white;
+          cursor: pointer;
+          text-align: left;
+          transition: all 0.2s;
+        }
+        
+        /* 选中状态 - 黑白风格 */
+        .option-btn.selected {
+          background-color: #e0e0e0;
+          border-color: #666;
+          font-weight: bold;
+        }
+        
+        .option-btn:hover:not(:disabled) {
+          background-color: #f0f0f0;
+        }
+        
+        .answer-input {
+          margin-top: 15px;
+          padding: 10px;
+          width: 100%;
+          border: 1px solid #999;
+          border-radius: 4px;
+        }
+        
+
+        .submit-btn {
+          margin-top: 20px;
+          font-size: 16px;
+          cursor: pointer;
+          background-color: #333;
+          transition: background-color 0.2s;
+        }
+        
+        .submit-btn:hover {
+          background-color: #555;
+        }
+        
+        .results-section {
+          text-align: center;
+          max-width: 800px;
+          margin: 0 auto;
+        }
+        
+        .score-display {
+          font-size: 24px;
+          margin: 20px 0;
+          padding: 10px;
+          background-color: #f0f0f0;
+          border-radius: 8px;
+          color: #333;
+        }
+        
+        .answer-review {
+          margin-top: 30px;
+          text-align: left;
+        }
+        
+        .review-item {
+          background-color: white;
+          padding: 15px;
+          margin-bottom: 15px;
+          border-radius: 8px;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .correct-mark {
+          color: #333;
+          font-weight: bold;
+        }
+        
+        .incorrect-mark {
+          color: #333;
+          font-weight: bold;
+        }
+        
+        .action-buttons {
+          margin-top: 30px;
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+        }
+        
+        /* 重新答题按钮 - 黑白风格 */
+        .reset-btn {
+          cursor: pointer;
+          font-size: 16px;
+          background-color: #666;
+          transition: background-color 0.2s;
+        }
+        
+        .reset-btn:hover {
+          background-color: #888;
+        }
+        
+        /* 返回首页按钮 - 黑白风格 */
+        .home-btn {
+          cursor: pointer;
+          font-size: 16px;
+          background-color: #999;
+          transition: background-color 0.2s;
+        }
+        
+        .home-btn:hover {
+          background-color: #bbb;
+        }
+      `}</style>
+    </div>
+  );
+};
+
 export default StudentDashboard;
