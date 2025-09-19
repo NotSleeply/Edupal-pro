@@ -47,7 +47,7 @@ export function LoginForm({
           </p>
         </div>
 
-        {/* 角色选择框已移除 */}
+
       </div>
 
       <div className="grid gap-6">
