@@ -335,6 +335,24 @@ const PKComponent = () => {
             <option value="数学">数学</option>
             <option value="英语">英语</option>
           </select>
+          <label className="block text-gray-700 mb-2">选择年级</label>
+          <select
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 text-base"
+          >
+            <option value="一年级">一年级</option>
+            <option value="二年级">二年级</option>
+            <option value="三年级">三年级</option>
+            <option value="四年级">四年级</option>
+            <option value="五年级">五年级</option>
+            <option value="六年级">六年级</option>
+            <option value="初一">初一</option>
+            <option value="初二">初二</option>
+            <option value="初三">初三</option>
+            <option value="高一">高一</option>
+            <option value="高二">高二</option>
+            <option value="高三">高三</option>
+            <option value="大学">大学</option>
+          </select>
         </div>
 
         <div className="bg-gray-50 p-5 rounded-lg mb-6 border border-gray-100">
