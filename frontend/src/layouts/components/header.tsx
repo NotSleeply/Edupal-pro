@@ -46,8 +46,9 @@ const Header = () => {
                 >
                   题库
                 </Link>
+                
               </nav>
-
+              
               <div className="ml-4 flex items-center gap-2 relative">
                 <Avatar
                   className="h-8 w-8 rounded-full cursor-pointer"

@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { loginSuccess } from "@/modules/auth"; // 假设 login 是你从 Redux 获取的登录 action
 import { useState } from "react";
 import { useAppDispatch } from "@/modules/stores"; // 假设你有一个自定义的 hook 来获取 dispatch
-import { toast } from "sonner"
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 export function LoginForm({
@@ -14,6 +14,7 @@ export function LoginForm({
 }: React.ComponentPropsWithoutRef<"form">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // 移除角色相关状态
   const dispatch = useAppDispatch(); // 获取 dispatch
   const navigate = useNavigate(); // 使用 useNavigate 进行页面跳转
 
@@ -38,12 +39,17 @@ export function LoginForm({
       {...props}
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">登录到您的账户</h1>
-        <p className="text-balance text-sm text-muted-foreground">
-          输入您的邮箱以登录账户
-        </p>
+      <div className="flex justify-between items-center">
+        <div className="flex flex-col items-center gap-2 text-center">
+          <h1 className="text-2xl font-bold">登录到您的账户</h1>
+          <p className="text-balance text-sm text-muted-foreground">
+            输入您的邮箱以登录账户
+          </p>
+        </div>
+
+        {/* 角色选择框已移除 */}
       </div>
+
       <div className="grid gap-6">
         <div className="grid gap-2">
           <Label htmlFor="email">邮箱</Label>
@@ -74,9 +80,11 @@ export function LoginForm({
             required
           />
         </div>
+
         <Button type="submit" className="w-full">
           登录
         </Button>
+
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
           <span className="relative z-10 bg-background px-2 text-muted-foreground">
             或继续使用

@@ -33,6 +33,10 @@ const routers = [
   {
     path: "/student-dashboard",
     component: lazy(() => import("@/pages/student-dashboard")), // 使用懒加载
+  },
+  {
+    path: "/student-dashboard/pk",
+    component: lazy(() => import("@/pages/student-dashboard/pk")), // 使用懒加载
   }
 ];
 
