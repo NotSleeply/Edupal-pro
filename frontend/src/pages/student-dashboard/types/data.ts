@@ -2,42 +2,49 @@ import type { QuestionType, OpponentType,CourseCardProps } from "./types";
 
 const defaultCourses: CourseCardProps[] = [
   {
+    id: 1,
     title: "语文",
     teacher: "张云",
     niandu: "翻斗天才小学",
     image: "https://th.bing.com/th/id/OIP.hh4ARKCOB9m3xOhU3DEMNwHaE8?w=281&h=187&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
   },
   {
+    id: 2,
     title: "数学",
     teacher: "李念",
     niandu: "翻斗天才小学",
     image: "https://tse3.mm.bing.net/th/id/OIP.nFlgcnsegrc1dlWl3YxwnAAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
   },
   {
+    id: 3,
     title: "英语",
     teacher: "王老吉",
     niandu: "翻斗天才小学",
     image: "https://tse1.mm.bing.net/th/id/OIP.IKAnaprVXSqeObyfGErQ8AHaFL?rs=1&pid=ImgDetMain&o=7&rm=3",
   },
   {
+    id: 4,
     title: "物理",
     teacher: "赵娣",
     niandu: "翻斗天才小学",
     image: "https://th.bing.com/th/id/OIP.oWs7cQlJmp7B6AfAWgTmFgHaE8?w=270&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
   },
   {
+    id: 5,
     title: "化学",
     teacher: "钱唐",
     niandu: "翻斗天才小学",
     image: "https://th.bing.com/th/id/OIP.znz76e61VN7fyDKOJYwvvgHaE7?w=282&h=188&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
   },
   {
+      id: 6,
     title: "地理",
     teacher: "吴心语",
     niandu: "翻斗天才小学",
     image: "https://tse2-mm.cn.bing.net/th/id/OIP-C.NEXlqYnzW1HEVQ3zX2q8DgHaEK?w=303&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
   },
   {
+      id: 7,
     title: "科学",
     teacher: "郑丰源",
     niandu: "翻斗天才小学",

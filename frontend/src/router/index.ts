@@ -34,6 +34,10 @@ const routers = [
     path: "/student-dashboard",
     component: lazy(() => import("@/pages/student-dashboard/index")), // 使用懒加载
   },
+  {
+    path: "/student-dashboard/course/:id",
+    component: lazy(() => import("@/pages/student-dashboard/components/CourseDetail")),
+  },
 ];
 
 export default routers;

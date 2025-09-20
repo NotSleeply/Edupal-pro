@@ -15,6 +15,7 @@ type OpponentType = {
 };
 
 type CourseCardProps = {
+  id: number;
   title: string;
   teacher: string;
   niandu: string;

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { CourseCardProps } from "../types/types";
 
 
@@ -6,22 +7,28 @@ export const CourseCard = ({
   teacher,
   niandu,
   image,
-}: CourseCardProps) => (
-  <div className="bg-card text-card-foreground rounded-lg border shadow-sm hover:shadow-md transition-shadow cursor-pointer overflow-hidden">
+  id,
+}: CourseCardProps & { id: number }) => {
+  const navigate = useNavigate();
+  return (
     <div
-      className="h-40 bg-cover bg-center"
-      style={{
-        backgroundImage: `url(${image})`,
-      }}
-    ></div>
-    <div className="p-4">
-      <h3 className="font-semibold text-lg mb-2">{title}</h3>
-      <p className="text-sm text-muted-foreground mb-1">教师: {teacher}</p>
-      <p className="text-sm text-muted-foreground">{niandu}</p>
+      className="bg-card text-card-foreground rounded-lg border shadow-sm hover:shadow-md transition-shadow cursor-pointer overflow-hidden"
+      onClick={() => navigate(`/student-dashboard/course/${id}`)}
+    >
+      <div
+        className="h-40 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${image})`,
+        }}
+      ></div>
+      <div className="p-4">
+        <h3 className="font-semibold text-lg mb-2">{title}</h3>
+        <p className="text-sm text-muted-foreground mb-1">教师: {teacher}</p>
+        <p className="text-sm text-muted-foreground">{niandu}</p>
+      </div>
     </div>
-  </div>
-);
-
+  );
+};
 type MyCoursesProps = {
   courses: CourseCardProps[];
 };

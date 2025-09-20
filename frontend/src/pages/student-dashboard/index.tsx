@@ -46,35 +46,11 @@ const StudentDashboard = () => {
           <div className="overflow-x-auto pb-2">
             <TabsList className="w-full md:w-auto">
               <TabsTrigger value="my-courses">我的课程</TabsTrigger>
-              <TabsTrigger value="homework">作业</TabsTrigger>
-              <TabsTrigger value="tests">考试</TabsTrigger>
-              <TabsTrigger value="schedule">课程表</TabsTrigger>
-              <TabsTrigger value="grades">成绩</TabsTrigger>
               <TabsTrigger value="PK">PK</TabsTrigger>
             </TabsList>
           </div>
           <TabsContent value="my-courses">
             <MyCourses courses={courses} />
-          </TabsContent>
-          <TabsContent value="homework">
-            <div className="p-4 text-center text-muted-foreground">
-              作业功能开发中...
-            </div>
-          </TabsContent>
-          <TabsContent value="tests">
-            <div className="p-4 text-center text-muted-foreground">
-              考试功能开发中...
-            </div>
-          </TabsContent>
-          <TabsContent value="schedule">
-            <div className="p-4 text-center text-muted-foreground">
-              课程表功能开发中...
-            </div>
-          </TabsContent>
-          <TabsContent value="grades">
-            <div className="p-4 text-center text-muted-foreground">
-              成绩功能开发中...
-            </div>
           </TabsContent>
           <TabsContent value="PK">
             <PKComponent />

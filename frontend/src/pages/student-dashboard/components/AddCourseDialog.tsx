@@ -24,6 +24,7 @@ const AddCourseDialog: React.FC<AddCourseDialogProps> = ({
 
   const handleConfirm = () => {
     onAdd({
+      id: Number(courseId),
       title: randomName[Math.floor(Math.random() * randomName.length)],
       teacher: randomTeacher[Math.floor(Math.random() * randomTeacher.length)],
       niandu: school || "辽宁省实验中学",
