@@ -27,51 +27,17 @@ export const CourseCard = ({
   </div>
 );
 
-const MyCourses = () => (
+type MyCoursesProps = {
+  courses: CourseCardProps[];
+};
+
+const MyCourses = ({ courses }: MyCoursesProps) => (
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-    <CourseCard
-      title="语文"
-      teacher="张云"
-      niandu="2025——2026-1"
-      image="https://th.bing.com/th/id/OIP.hh4ARKCOB9m3xOhU3DEMNwHaE8?w=281&h=187&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3"
-    />
-    <CourseCard
-      title="数学"
-      teacher="李念"
-      niandu="2025——2026-1"
-      image="https://tse3.mm.bing.net/th/id/OIP.nFlgcnsegrc1dlWl3YxwnAAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
-    />
-    <CourseCard
-      title="英语"
-      teacher="王老吉"
-      niandu="2025——2026-1"
-      image="https://tse1.mm.bing.net/th/id/OIP.IKAnaprVXSqeObyfGErQ8AHaFL?rs=1&pid=ImgDetMain&o=7&rm=3"
-    />
-    <CourseCard
-      title="物理"
-      teacher="赵娣"
-      niandu="2025——2026-1"
-      image="https://th.bing.com/th/id/OIP.oWs7cQlJmp7B6AfAWgTmFgHaE8?w=270&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3"
-    />
-    <CourseCard
-      title="化学"
-      teacher="钱唐"
-      niandu="2025——2026-1"
-      image="https://th.bing.com/th/id/OIP.znz76e61VN7fyDKOJYwvvgHaE7?w=282&h=188&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3"
-    />
-    <CourseCard
-      title="地理"
-      teacher="吴心语"
-      niandu="2025——2026-1"
-      image="https://tse2-mm.cn.bing.net/th/id/OIP-C.NEXlqYnzW1HEVQ3zX2q8DgHaEK?w=303&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3"
-    />
-    <CourseCard
-      title="科学"
-      teacher="郑丰源"
-      niandu="2025——2026-1"
-      image="https://tse4-mm.cn.bing.net/th/id/OIP-C.o69xavy65VhcESGCe1GVygHaEd?w=254&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3"
-    />
+    {courses.map((course, idx) => (
+      <CourseCard key={idx} {...course} />
+    ))}
   </div>
 );
 
+export type { CourseCardProps };
 export default MyCourses;
