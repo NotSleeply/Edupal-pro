@@ -35,10 +35,6 @@ const routers = [
     component: lazy(() => import("@/pages/student-dashboard/index")), // 使用懒加载
   },
   {
-    path: "/student-dashboard/pk",
-    component: lazy(() => import("@/pages/student-dashboard/pk")), // 使用懒加载
-  },
-  {
     path: "/student-dashboard/Question",
     component: lazy(() => import("@/pages/student-dashboard/Question")), // 使用懒加载
   }
