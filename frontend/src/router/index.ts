@@ -30,18 +30,17 @@ const routers = [
     path: "/testpaper/detail",
     component: lazy(() => import("@/pages/testpaper-detail")), // 使用懒加载
   },
-
   {
     path: "/student-dashboard",
     component: lazy(() => import("@/pages/student-dashboard/index")), // 使用懒加载
   },
   {
-    path: "/student-dashboard/i-index",
-    component: lazy(() => import("@/pages/student-dashboard/i-index")), // 使用懒加载
-  },
-  {
     path: "/student-dashboard/pk",
     component: lazy(() => import("@/pages/student-dashboard/pk")), // 使用懒加载
+  },
+  {
+    path: "/student-dashboard/Question",
+    component: lazy(() => import("@/pages/student-dashboard/Question")), // 使用懒加载
   }
 ];
 

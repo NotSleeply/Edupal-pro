@@ -23,7 +23,7 @@ export function LoginForm({
     try {
       await dispatch(loginSuccess({ token: "fake-token", userInfo: { email, role: email.includes("stu") ? "student" : "teacher" } }));
       if (email.includes("stu")) {
-        navigate("/student-dashboard/i-index");
+        navigate("/student-dashboard");
       }
       else {
         navigate("/dashboard"); 
