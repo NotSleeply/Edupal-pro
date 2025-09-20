@@ -61,9 +61,30 @@ const PKComponent = () => {
     setUserAnswers([null, null, null, null, null]);
   };
 
+  const getRandomQuestions = (allQuestions: QuestionType[], count: number) => {
+    const arr = [...allQuestions];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr.slice(0, count);
+  };
+
   const startPK = () => {
+    const all = questionBank[subject] || [];
+    const randomQuestions = getRandomQuestions(all, 5);
+    setQuestions(randomQuestions);
     setIsPkStarted(true);
-    resetPK();
+    setCurrentQuestion(0);
+    setUserScore(0);
+    setOpponentScore(0);
+    setUserAnswer(null);
+    setIsAnswered(false);
+    setIsCorrect(null);
+    setTimer(15);
+    setIsPkFinished(false);
+    setShowPKSummary(false);
+    setUserAnswers(Array(5).fill(null));
   };
 
   const handleTimeOut = () => {

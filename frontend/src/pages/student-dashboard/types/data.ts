@@ -134,6 +134,204 @@ const questionBank: Record<string, QuestionType[]> = {
       type: "选择题",
       analysis: "本题考查唐诗作者与作品的对应。《静夜思》是唐代诗人李白的代表作之一。"
     },
+    {
+      id: 6,
+      question: "《出师表》的作者是？",
+      options: ["诸葛亮", "司马迁", "杜甫", "李白"],
+      answer: "诸葛亮",
+      type: "选择题",
+      analysis: "本题考查古文名篇与作者的对应关系。《出师表》是三国时期蜀汉丞相诸葛亮上表刘禅的著名文章。"
+    },
+    {
+      id: 7,
+      question: "《三国演义》的作者是谁？",
+      options: ["罗贯中", "曹雪芹", "施耐庵", "吴承恩"],
+      answer: "罗贯中",
+      type: "选择题",
+      analysis: "《三国演义》是中国古典四大名著之一，作者是元末明初的罗贯中。"
+    },
+    {
+      id: 8,
+      question: "“人生自古谁无死”出自哪位诗人？",
+      options: ["文天祥", "陆游", "辛弃疾", "苏轼"],
+      answer: "文天祥",
+      type: "选择题",
+      analysis: "“人生自古谁无死，留取丹心照汗青”出自文天祥的《过零丁洋》。"
+    },
+    {
+      id: 9,
+      question: "“大江东去，浪淘尽，千古风流人物”出自哪首词？",
+      options: ["念奴娇·赤壁怀古", "水调歌头", "青玉案·元夕", "永遇乐·京口北固亭怀古"],
+      answer: "念奴娇·赤壁怀古",
+      type: "选择题",
+      analysis: "“大江东去，浪淘尽，千古风流人物”出自苏轼的《念奴娇·赤壁怀古》。"
+    },
+    {
+      id: 10,
+      question: "“桃花潭水深千尺，不及汪伦送我情”是谁写的？",
+      options: ["李白", "杜甫", "白居易", "王之涣"],
+      answer: "李白",
+      type: "选择题",
+      analysis: "这句诗出自李白的《赠汪伦》。"
+    },
+    {
+      id: 11,
+      question: "“会当凌绝顶，一览众山小”出自哪座山？",
+      options: ["泰山", "华山", "嵩山", "衡山"],
+      answer: "泰山",
+      type: "选择题",
+      analysis: "“会当凌绝顶，一览众山小”出自杜甫的《望岳》，写的是泰山。"
+    },
+    {
+      id: 12,
+      question: "“天生我材必有用，千金散尽还复来”是谁的诗句？",
+      options: ["李白", "杜甫", "白居易", "王维"],
+      answer: "李白",
+      type: "选择题",
+      analysis: "这句诗出自李白的《将进酒》。"
+    },
+    {
+      id: 13,
+      question: "“劝君更尽一杯酒，西出阳关无故人”是谁写的？",
+      options: ["王维", "李白", "杜甫", "白居易"],
+      answer: "王维",
+      type: "选择题",
+      analysis: "这句诗出自王维的《送元二使安西》。"
+    },
+    {
+      id: 14,
+      question: "“春眠不觉晓，处处闻啼鸟”出自哪首诗？",
+      answer: "春晓",
+      type: "填空题",
+      analysis: "“春眠不觉晓，处处闻啼鸟”出自孟浩然的《春晓》。"
+    },
+    {
+      id: 15,
+      question: "“白日依山尽，黄河入海流”是谁的诗句？",
+      options: ["王之涣", "王维", "李白", "杜甫"],
+      answer: "王之涣",
+      type: "选择题",
+      analysis: "这句诗出自王之涣的《登鹳雀楼》。"
+    },
+    {
+      id: 16,
+      question: "“举头望明月，低头思故乡”出自哪首诗？",
+      answer: "静夜思",
+      type: "填空题",
+      analysis: "“举头望明月，低头思故乡”出自李白的《静夜思》。"
+    },
+    {
+      id: 17,
+      question: "“谁言寸草心，报得三春晖”表达了什么情感？",
+      options: ["母爱", "友情", "爱情", "乡愁"],
+      answer: "母爱",
+      type: "选择题",
+      analysis: "这句诗出自孟郊的《游子吟》，表达了对母爱的感激。"
+    },
+    {
+      id: 18,
+      question: "“路漫漫其修远兮，吾将上下而求索”是谁的诗句？",
+      options: ["屈原", "李白", "杜甫", "陶渊明"],
+      answer: "屈原",
+      type: "选择题",
+      analysis: "这句诗出自屈原的《离骚》。"
+    },
+    {
+      id: 19,
+      question: "“但使龙城飞将在，不教胡马度阴山”写的是哪位将军？",
+      options: ["李广", "霍去病", "卫青", "班超"],
+      answer: "李广",
+      type: "选择题",
+      analysis: "“飞将军”指的是汉朝名将李广。"
+    },
+    {
+      id: 20,
+      question: "“己所不欲，勿施于人”是谁的主张？",
+      options: ["孔子", "孟子", "老子", "庄子"],
+      answer: "孔子",
+      type: "选择题",
+      analysis: "“己所不欲，勿施于人”是孔子的仁爱思想。"
+    },
+    {
+      id: 21,
+      question: "“海内存知己，天涯若比邻”是谁写的？",
+      options: ["王勃", "王之涣", "王维", "李白"],
+      answer: "王勃",
+      type: "选择题",
+      analysis: "这句诗出自王勃的《送杜少府之任蜀州》。"
+    },
+    {
+      id: 22,
+      question: "“莫愁前路无知己，天下谁人不识君”是谁的诗句？",
+      options: ["高适", "王昌龄", "王维", "李白"],
+      answer: "高适",
+      type: "选择题",
+      analysis: "这句诗出自高适的《别董大》。"
+    },
+    {
+      id: 23,
+      question: "“采菊东篱下，悠然见南山”是谁的诗句？",
+      options: ["陶渊明", "王维", "李白", "杜甫"],
+      answer: "陶渊明",
+      type: "选择题",
+      analysis: "这句诗出自陶渊明的《饮酒》。"
+    },
+    {
+      id: 24,
+      question: "“人生若只如初见”是谁的词句？",
+      options: ["纳兰性德", "李清照", "苏轼", "辛弃疾"],
+      answer: "纳兰性德",
+      type: "选择题",
+      analysis: "“人生若只如初见”出自纳兰性德的《木兰花令·拟古决绝词》。"
+    },
+    {
+      id: 25,
+      question: "“无可奈何花落去，似曾相识燕归来”是谁的诗句？",
+      options: ["晏殊", "欧阳修", "苏轼", "李清照"],
+      answer: "晏殊",
+      type: "选择题",
+      analysis: "这句诗出自晏殊的《浣溪沙》。"
+    },
+    {
+      id: 26,
+      question: "“问君能有几多愁？恰似一江春水向东流”是谁的词句？",
+      options: ["李煜", "李清照", "苏轼", "辛弃疾"],
+      answer: "李煜",
+      type: "选择题",
+      analysis: "这句词出自李煜的《虞美人》。"
+    },
+    {
+      id: 27,
+      question: "“人生得意须尽欢，莫使金樽空对月”是谁的诗句？",
+      options: ["李白", "杜甫", "白居易", "王维"],
+      answer: "李白",
+      type: "选择题",
+      analysis: "这句诗出自李白的《将进酒》。"
+    },
+    {
+      id: 28,
+      question: "“千里江陵一日还”描述的是哪条江？",
+      options: ["长江", "黄河", "珠江", "淮河"],
+      answer: "长江",
+      type: "选择题",
+      analysis: "“千里江陵一日还”出自李白的《早发白帝城》，描述的是长江。"
+    },
+    {
+      id: 29,
+      question: "“落霞与孤鹜齐飞，秋水共长天一色”是谁的诗句？",
+      options: ["王勃", "王之涣", "王维", "李白"],
+      answer: "王勃",
+      type: "选择题",
+      analysis: "这句诗出自王勃的《滕王阁序》。"
+    },
+    {
+      id: 30,
+      question: "“羌笛何须怨杨柳，春风不度玉门关”是谁的诗句？",
+      options: ["王之涣", "王维", "李白", "杜甫"],
+      answer: "王之涣",
+      type: "选择题",
+      analysis: "这句诗出自王之涣的《凉州词》。"
+    }
   ],
   数学: [
     {
@@ -174,6 +372,116 @@ const questionBank: Record<string, QuestionType[]> = {
       answer: "±2",
       type: "选择题",
       analysis: "对方程x²-4=0进行变形可得x²=4，因此x=±2。"
+    },
+    {
+      id: 6,
+      question: "下列哪些数是质数？",
+      options: ["2", "3", "4", "5"],
+      answer: "2,3,5",
+      type: "多选题",
+      analysis: "质数是只能被1和自身整除的自然数，2、3、5都是质数，4不是质数。【多选题】"
+    },
+    {
+      id: 7,
+      question: "下列哪些图形有对称轴？",
+      options: ["正方形", "长方形", "三角形", "圆"],
+      answer: "正方形,长方形,圆",
+      type: "多选题",
+      analysis: "正方形、长方形和圆都有对称轴，普通三角形一般没有对称轴。【多选题】"
+    },
+    {
+      id: 8,
+      question: "下列等式哪些是成立的？",
+      options: ["2×3=6", "5+5=11", "9-4=5", "8÷2=4"],
+      answer: "2×3=6,9-4=5,8÷2=4",
+      type: "多选题",
+      analysis: "2×3=6，9-4=5，8÷2=4 都成立，5+5=10，不成立。【多选题】"
+    },
+    {
+      id: 9,
+      question: "选择所有偶数。",
+      options: ["1", "2", "3", "4"],
+      answer: "2,4",
+      type: "多选题",
+      analysis: "偶数是能被2整除的数，这里2和4是偶数。【多选题】"
+    },
+    {
+      id: 10,
+      question: "下列哪些属于平面图形？",
+      options: ["圆", "球", "正方形", "长方体"],
+      answer: "圆,正方形",
+      type: "多选题",
+      analysis: "圆和正方形是平面图形，球和长方体是立体图形。【多选题】"
+    },
+    {
+      id: 11,
+      question: "π（圆周率）约等于多少？",
+      answer: "3.14",
+      type: "填空题",
+      analysis: "圆周率π常用近似值为3.14。"
+    },
+    {
+      id: 12,
+      question: "5的平方根是______。",
+      answer: "√5",
+      type: "填空题",
+      analysis: "5的平方根是√5。"
+    },
+    {
+      id: 13,
+      question: "100除以4等于______。",
+      answer: "25",
+      type: "填空题",
+      analysis: "100÷4=25。"
+    },
+    {
+      id: 14,
+      question: "一个正方形有______条对称轴。",
+      answer: "4",
+      type: "填空题",
+      analysis: "正方形有4条对称轴。"
+    },
+    {
+      id: 15,
+      question: "1千米等于______米。",
+      answer: "1000",
+      type: "填空题",
+      analysis: "1千米=1000米。"
+    },
+    {
+      id: 16,
+      question: "三角形的面积公式是______。",
+      answer: "底×高÷2",
+      type: "填空题",
+      analysis: "三角形面积=底×高÷2。"
+    },
+    {
+      id: 17,
+      question: "2的5次方等于______。",
+      answer: "32",
+      type: "填空题",
+      analysis: "2的5次方是2×2×2×2×2=32。"
+    },
+    {
+      id: 18,
+      question: "直角三角形中，最大的角是______度。",
+      answer: "90",
+      type: "填空题",
+      analysis: "直角三角形中最大的角是直角，即90度。"
+    },
+    {
+      id: 19,
+      question: "圆的半径是5，直径是______。",
+      answer: "10",
+      type: "填空题",
+      analysis: "直径=半径×2=10。"
+    },
+    {
+      id: 20,
+      question: "0.25化成百分数是______%。",
+      answer: "25",
+      type: "填空题",
+      analysis: "0.25=25%。"
     },
   ],
   英语: [
@@ -224,6 +532,246 @@ const questionBank: Record<string, QuestionType[]> = {
       answer: "goes",
       type: "选择题",
       analysis: "This question tests knowledge of subject-verb agreement. The correct form is 'goes' for the third person singular."
+    },
+    {
+      id: 7,
+      question: "Which word is a synonym for 'happy'?",
+      options: ["Sad", "Glad", "Angry", "Tired"],
+      answer: "Glad",
+      type: "选择题",
+      analysis: "This question tests knowledge of synonyms. 'Glad' has a similar meaning to 'happy'."
+    },
+    {
+      id: 8,
+      question: "What is the opposite of 'big'?",
+      options: ["Small", "Tall", "Long", "Wide"],
+      answer: "Small",
+      type: "选择题",
+      analysis: "This question tests knowledge of antonyms. 'Small' is the opposite of 'big'."
+    },
+    {
+      id: 9,
+      question: "Translate to Chinese: 'Where is the bathroom?'",
+      options: ["餐厅在哪里？", "浴室在哪里？", "厨房在哪里？", "卧室在哪里？"],
+      answer: "浴室在哪里？",
+      type: "选择题",
+      analysis: "This question tests translation skills. 'Bathroom' translates to '浴室' in Chinese."
+    },
+    {
+      id: 10,
+      question: "'I have two cat.' Is this sentence correct?",
+      options: ["Yes", "No"],
+      answer: "No",
+      type: "判断题",
+      analysis: "This question tests plural forms. The correct sentence should be 'I have two cats'."
+    },
+    {
+      id: 11,
+      question: "Which of these is a fruit?",
+      options: ["Carrot", "Potato", "Apple", "Broccoli"],
+      answer: "Apple",
+      type: "选择题",
+      analysis: "This question tests vocabulary classification. An apple is a type of fruit."
+    },
+    {
+      id: 12,
+      question: "Fill in the blank: 'They ___ playing football now.'",
+      options: ["is", "are", "am", "be"],
+      answer: "are",
+      type: "选择题",
+      analysis: "This question tests present continuous tense. 'Are' is correct for plural subject 'they'."
+    },
+    {
+      id: 13,
+      question: "What is the past participle of 'eat'?",
+      options: ["ate", "eaten", "eating", "eat"],
+      answer: "eaten",
+      type: "选择题",
+      analysis: "This question tests verb forms. The past participle of 'eat' is 'eaten'."
+    },
+    {
+      id: 14,
+      question: "Which word is a verb?",
+      options: ["Quickly", "Beautiful", "Run", "Table"],
+      answer: "Run",
+      type: "选择题",
+      analysis: "This question tests parts of speech. 'Run' is an action verb."
+    },
+    {
+      id: 15,
+      question: "Translate to English: '明天会下雨吗？'",
+      options: ["Is it raining tomorrow?", "Will it rain tomorrow?", "Does it rain tomorrow?", "Was it raining tomorrow?"],
+      answer: "Will it rain tomorrow?",
+      type: "选择题",
+      analysis: "This question tests future tense translation. The correct form uses 'will' for future events."
+    },
+    {
+      id: 16,
+      question: "'She don't like coffee.' Is this sentence correct?",
+      options: ["Yes", "No"],
+      answer: "No",
+      type: "判断题",
+      analysis: "This question tests subject-verb agreement. Correct form: 'She doesn't like coffee'."
+    },
+    {
+      id: 17,
+      question: "What is the plural form of 'mouse'?",
+      options: ["mouses", "mice", "mousees", "mouse"],
+      answer: "mice",
+      type: "选择题",
+      analysis: "This question tests irregular plurals. The plural of 'mouse' is 'mice'."
+    },
+    {
+      id: 18,
+      question: "Which preposition completes this sentence: 'I'm good ___ swimming.'",
+      options: ["in", "on", "at", "with"],
+      answer: "at",
+      type: "选择题",
+      analysis: "This question tests preposition usage. The correct phrase is 'good at' for skills."
+    },
+    {
+      id: 19,
+      question: "What does 'expensive' mean?",
+      options: ["Costing a lot of money", "Very small", "Easy to carry", "Tasting good"],
+      answer: "Costing a lot of money",
+      type: "选择题",
+      analysis: "This question tests vocabulary meaning. 'Expensive' describes something that costs much money."
+    },
+    {
+      id: 20,
+      question: "'We are go to the park.' Is this sentence correct?",
+      options: ["Yes", "No"],
+      answer: "No",
+      type: "判断题",
+      analysis: "This question tests future tense. Correct form: 'We are going to the park'."
+    },
+    {
+      id: 21,
+      question: "Fill in the blank: '___ book is on the table?'",
+      options: ["Who", "Which", "Whose", "Where"],
+      answer: "Whose",
+      type: "选择题",
+      analysis: "This question tests interrogative pronouns. 'Whose' is used to ask about possession."
+    },
+    {
+      id: 22,
+      question: "Which of these is a country?",
+      options: ["Paris", "Tokyo", "France", "Beijing"],
+      answer: "France",
+      type: "选择题",
+      analysis: "This question tests geographical knowledge. France is a country; others are cities."
+    },
+    {
+      id: 23,
+      question: "Translate to Chinese: 'I have been studying English for 3 years.'",
+      options: ["我学英语3年了。", "我将学英语3年。", "我正在学英语3年。", "我学英语3年。"],
+      answer: "我学英语3年了。",
+      type: "选择题",
+      analysis: "This question tests present perfect continuous translation. The correct translation uses '了' to indicate completion."
+    },
+    {
+      id: 24,
+      question: "'He is taller than me.' Is this sentence correct?",
+      options: ["Yes", "No"],
+      answer: "Yes",
+      type: "判断题",
+      analysis: "This question tests comparative forms. The sentence correctly uses 'taller than'."
+    },
+    {
+      id: 25,
+      question: "What is the superlative form of 'fast'?",
+      options: ["faster", "fastest", "more fast", "most fast"],
+      answer: "fastest",
+      type: "选择题",
+      analysis: "This question tests superlative forms. For short adjectives, add '-est'."
+    },
+    {
+      id: 26,
+      question: "Which word is an adverb?",
+      options: ["Happy", "Happily", "Happiness", "Happyly"],
+      answer: "Happily",
+      type: "选择题",
+      analysis: "This question tests parts of speech. 'Happily' is an adverb (ends with '-ly')."
+    },
+    {
+      id: 27,
+      question: "Fill in the blank: 'If it ___ tomorrow, we will stay home.'",
+      options: ["rain", "rains", "rained", "will rain"],
+      answer: "rains",
+      type: "选择题",
+      analysis: "This question tests conditional sentences. Present simple is used in the 'if' clause."
+    },
+    {
+      id: 28,
+      question: "What does 'apologize' mean?",
+      options: ["To say sorry", "To ask for help", "To give thanks", "To make a promise"],
+      answer: "To say sorry",
+      type: "选择题",
+      analysis: "This question tests vocabulary meaning. 'Apologize' means to express regret for a mistake."
+    },
+    {
+      id: 29,
+      question: "Translate to English: '我昨天去了商店。'",
+      options: ["I go to the store yesterday.", "I will go to the store yesterday.", "I went to the store yesterday.", "I was going to the store yesterday."],
+      answer: "I went to the store yesterday.",
+      type: "选择题",
+      analysis: "This question tests past tense translation. 'Yesterday' requires past simple tense."
+    },
+    {
+      id: 30,
+      question: "'She has three childs.' Is this sentence correct?",
+      options: ["Yes", "No"],
+      answer: "No",
+      type: "判断题",
+      analysis: "This question tests irregular plurals. Correct form: 'She has three children'."
+    },
+    {
+      id: 31,
+      question: "Which preposition is correct: 'I'm interested ___ history.'",
+      options: ["in", "on", "at", "for"],
+      answer: "in",
+      type: "选择题",
+      analysis: "This question tests preposition collocations. The correct phrase is 'interested in'."
+    },
+    {
+      id: 32,
+      question: "What is the present participle of 'cook'?",
+      options: ["cooked", "cooks", "cooking", "cook"],
+      answer: "cooking",
+      type: "选择题",
+      analysis: "This question tests verb forms. Present participle of 'cook' is 'cooking'."
+    },
+    {
+      id: 33,
+      question: "Which of these is a verb tense?",
+      options: ["Adjective", "Past perfect", "Noun", "Adverb"],
+      answer: "Past perfect",
+      type: "选择题",
+      analysis: "This question tests grammar knowledge. 'Past perfect' is a verb tense."
+    },
+    {
+      id: 34,
+      question: "Fill in the blank: 'She ___ here since 2010.'",
+      options: ["lives", "lived", "has lived", "will live"],
+      answer: "has lived",
+      type: "选择题",
+      analysis: "This question tests present perfect tense. 'Since' indicates an action continuing to now."
+    },
+    {
+      id: 35,
+      question: "What does 'generous' mean?",
+      options: ["Willing to give to others", "Very hungry", "Afraid of the dark", "Good at sports"],
+      answer: "Willing to give to others",
+      type: "选择题",
+      analysis: "This question tests vocabulary meaning. 'Generous' describes someone who gives freely."
+    },
+    {
+      id: 36,
+      question: "'They are going to visiting their grandparents.' Is this sentence correct?",
+      options: ["Yes", "No"],
+      answer: "No",
+      type: "判断题",
+      analysis: "This question tests future plans. Correct form: 'They are going to visit their grandparents'."
     }
   ]
 };
