@@ -1,12 +1,16 @@
 import { useParams } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { defaultCourses } from "../types/data";
 
 const CourseDetail = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
+  const course = defaultCourses.find(c => String(c.id) === id);
 
   return (
     <div className="container mx-auto py-8">
-      <h2 className="text-2xl font-bold mb-6">课程详情（ID: {id}）</h2>
+      <h2 className="text-2xl font-bold mb-6">
+        {course ? `${course.title}详情` : "课程详情"}
+      </h2>
       <Tabs defaultValue="homework" className="space-y-4">
         <TabsList>
           <TabsTrigger value="homework">作业</TabsTrigger>
