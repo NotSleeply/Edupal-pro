@@ -100,6 +100,7 @@ const StudentDashboard = () => {
               <TabsTrigger value="tests">考试</TabsTrigger>
               <TabsTrigger value="schedule">课程表</TabsTrigger>
               <TabsTrigger value="grades">成绩</TabsTrigger>
+              <TabsTrigger value="PK">PK</TabsTrigger>
             </TabsList>
           </div>
           <TabsContent value="my-courses">
@@ -123,6 +124,11 @@ const StudentDashboard = () => {
           <TabsContent value="grades">
             <div className="p-4 text-center text-muted-foreground">
               成绩功能开发中...
+            </div>
+          </TabsContent>
+          <TabsContent value="PK">
+            <div className="p-4 text-center text-muted-foreground">
+              PK功能开发中...
             </div>
           </TabsContent>
         </Tabs>
