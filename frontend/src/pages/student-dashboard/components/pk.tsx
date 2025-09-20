@@ -36,48 +36,6 @@ const subjectOpponents: Record<string, OpponentType> = {
     avatar: "https://picsum.photos/id/67/100/100",
     title: "雅思8.5分持有者",
     description: "熟悉英语基础词汇与语法，口语流利"
-  },
-  物理: {
-    name: "物理大神",
-    avatar: "https://picsum.photos/id/89/100/100",
-    title: "物理竞赛省一",
-    description: "对力学、光学等基础物理知识掌握扎实"
-  },
-  化学: {
-    name: "化学狂人",
-    avatar: "https://picsum.photos/id/11/100/100",
-    title: "化学实验能手",
-    description: "熟知常见物质化学式与化学反应原理"
-  },
-  生物: {
-    name: "生物博士",
-    avatar: "https://picsum.photos/id/34/100/100",
-    title: "生物竞赛国二",
-    description: "了解人体器官、光合作用等基础生物知识"
-  },
-  历史: {
-    name: "历史通",
-    avatar: "https://picsum.photos/id/56/100/100",
-    title: "历史博物馆志愿者",
-    description: "精通中外重大历史事件与时间线"
-  },
-  政治: {
-    name: "时政达人",
-    avatar: "https://picsum.photos/id/78/100/100",
-    title: "时政评论员",
-    description: "熟悉国家政治制度与社会主义核心价值观"
-  },
-  地理: {
-    name: "地理探险家",
-    avatar: "https://picsum.photos/id/90/100/100",
-    title: "环球旅行者",
-    description: "了解世界大洲、海洋与国家地理特征"
-  },
-  科学: {
-    name: "科学小达人",
-    avatar: "https://picsum.photos/id/12/100/100",
-    title: "青少年科技创新奖得主",
-    description: "掌握地球公转、能源分类等基础科学知识"
   }
 };
 
@@ -163,6 +121,56 @@ const questionBank: Record<string, QuestionType[]> = {
       type: "选择题",
       analysis: "对方程x²-4=0进行变形可得x²=4，因此x=±2。"
     },
+  ],
+  英语: [
+    {
+      id: 1,
+      question: "What is the capital of England?",
+      options: ["London", "Paris", "Berlin", "Madrid"],
+      answer: "London",
+      type: "选择题",
+      analysis: "This question tests knowledge of world capitals. London is the capital city of England."
+    },
+    {
+      id: 2,
+      question: "The past tense of 'go' is?",
+      options: ["goed", "went", "gone", "going"],
+      answer: "went",
+      type: "选择题",
+      analysis: "This question tests knowledge of English verb tenses. The correct past tense of 'go' is 'went'."
+    },
+    {
+      id: 3,
+      question: "Translate to English: '我喜欢学习英语。'",
+      options: ["I like studying English.", "I love studying English.", "I enjoy studying English.", "I hate studying English."],
+      answer: "I like studying English.",
+      type: "选择题",
+      analysis: "This question tests knowledge of English translation. The correct translation is 'I like studying English.'."
+    },
+    {
+      id: 4,
+      question: "'She is a teacher.' Is this sentence correct?",
+      options: ["Yes", "No"],
+      answer: "Yes",
+      type: "判断题",
+      analysis: "本题考查英语句子的语法结构。'She is a teacher.' 是一个正确的英语句子。"
+    },
+    {
+      id: 5,
+      question: "What is the plural form of 'child'?",
+      options: ["childs", "children", "childes", "child"],
+      answer: "children",
+      type: "选择题",
+      analysis: "This question tests knowledge of English plural forms. The correct plural form of 'child' is 'children'."
+    },
+    {
+      id: 6,
+      question: "Fill in the blank: 'He ___ to school every day.'",
+      options: ["go", "goes", "going", "gone"],
+      answer: "goes",
+      type: "选择题",
+      analysis: "This question tests knowledge of subject-verb agreement. The correct form is 'goes' for the third person singular."
+    }
   ]
 };
 
@@ -475,6 +483,7 @@ const PKComponent = () => {
           >
             <option value="语文">语文</option>
             <option value="数学">数学</option>
+            <option value="英语">英语</option>
           </select>
         </div>
 
