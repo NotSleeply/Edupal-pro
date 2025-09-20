@@ -784,12 +784,7 @@ const PkPage: React.FC = () => {
           >
             再挑战一次
           </button>
-          <button
-            className="flex-1 py-3 bg-black text-white rounded-lg hover:bg-white hover:text-black hover:border border-black transition-all duration-200 text-base font-medium"
-            onClick={() => navigate('/student-dashboard')}
-          >
-            返回
-          </button>
+          
           <button
             className="flex-1 py-3 bg-black text-white rounded-lg hover:bg-white hover:text-black hover:border border-black transition-all duration-200 text-base font-medium"
             onClick={() => setShowPKSummary(true)}
