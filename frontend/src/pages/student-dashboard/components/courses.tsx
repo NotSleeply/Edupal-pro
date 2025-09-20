@@ -1,10 +1,5 @@
+import { CourseCardProps } from "../types/types";
 
-type CourseCardProps = {
-  title: string;
-  teacher: string;
-  niandu: string;
-  image: string;
-};
 
 export const CourseCard = ({
   title,
