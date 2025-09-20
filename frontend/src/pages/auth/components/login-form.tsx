@@ -23,7 +23,7 @@ export function LoginForm({
     try {
       await dispatch(loginSuccess({ token: "fake-token", userInfo: { email, role: email.includes("stu") ? "student" : "teacher" } }));
       if (email.includes("stu")) {
-        navigate("/student-dashboard");
+        navigate("/student-dashboard/i-index");
       }
       else {
         navigate("/dashboard"); 
@@ -47,7 +47,7 @@ export function LoginForm({
           </p>
         </div>
 
-        {/* 角色选择框已移除 */}
+
       </div>
 
       <div className="grid gap-6">
