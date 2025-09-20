@@ -9,7 +9,7 @@ const CourseDetail = () => {
   return (
     <div className="container mx-auto py-8">
       <h2 className="text-2xl font-bold mb-6">
-        {course ? `${course.title}详情` : "课程详情"}
+        {course ? `${course.title}课程详情` : "课程详情"}
       </h2>
       <Tabs defaultValue="homework" className="space-y-4">
         <TabsList>
