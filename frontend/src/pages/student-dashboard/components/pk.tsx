@@ -20,7 +20,7 @@ const PKComponent = () => {
   const [opponentScore, setOpponentScore] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [, setTimer] = useState(15);
+  const [timer, setTimer] = useState(15);
   const [isPkStarted, setIsPkStarted] = useState(false);
   const [isPkFinished, setIsPkFinished] = useState(false);
   const [showPKSummary, setShowPKSummary] = useState(false);
@@ -49,6 +49,7 @@ const PKComponent = () => {
 
   useEffect(() => {
     if (!isPkStarted || isPkFinished || isAnswered) return;
+    setTimer(15);
     const interval = setInterval(() => {
       setTimer(prev => {
         if (prev <= 1) {
@@ -60,7 +61,7 @@ const PKComponent = () => {
       });
     }, 1000);
     return () => clearInterval(interval);
-  }, [isPkStarted, isPkFinished, isAnswered]);
+  }, [isPkStarted, isPkFinished, isAnswered, currentQuestion]);
 
   // 匹配计时器
   useEffect(() => {
@@ -323,6 +324,7 @@ const PKComponent = () => {
         onOptionClick={handleOptionClick}
         onInputChange={handleInputChange}
         onSubmitAnswer={handleSubmitAnswer}
+        timer={timer}
       />
       {renderAnswerResult()}
     </div>
