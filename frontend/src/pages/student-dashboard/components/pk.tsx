@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, } from 'react';
 import { subjectOpponents, questionBank } from '../types/data';
 import type { QuestionType } from '../types/types';
 import PKMatching from './PKMatching';
@@ -32,15 +32,15 @@ const PKComponent = () => {
   const [isWaitingForOpponent, setIsWaitingForOpponent] = useState(false);
   const [matchingTimer, setMatchingTimer] = useState(0);
   const [waitingTimer, setWaitingTimer] = useState(0);
+  const [currentOpponent, setCurrentOpponent] = useState(() => {
+    return subjectOpponents[Math.floor(Math.random() * subjectOpponents.length)];
+  });
 
-  const currentOpponent = useMemo(() => {
-    return subjectOpponents[subject] || {
-      name: "匿名挑战者",
-      avatar: "https://picsum.photos/id/64/100/100",
-      title: "未知挑战者",
-      description: "神秘的PK对手"
-    };
-  }, [subject]);
+  useEffect(() => {
+    if (isMatched) {
+      setCurrentOpponent(subjectOpponents[Math.floor(Math.random() * subjectOpponents.length)]);
+    }
+  }, [isMatched]);
 
   useEffect(() => {
     setQuestions(questionBank[subject] || []);

@@ -72,26 +72,146 @@ const randomName = [
 ];
 
 // PK功能相关数据
-const subjectOpponents: Record<string, OpponentType> = {
-  语文: {
+const subjectOpponents: OpponentType[] = [
+  {
     name: "文言达人",
     avatar: "https://picsum.photos/id/23/100/100",
     title: "古诗文爱好者",
     description: "擅长中国古典文学，对四大名著了如指掌"
   },
-  数学: {
+  {
     name: "数学学霸",
     avatar: "https://picsum.photos/id/45/100/100",
     title: "奥数竞赛获奖者",
     description: "精通四则运算与方程求解，计算速度超快"
   },
-  英语: {
+  {
     name: "英语达人",
     avatar: "https://picsum.photos/id/67/100/100",
     title: "雅思8.5分持有者",
     description: "熟悉英语基础词汇与语法，口语流利"
+  },
+  {
+    name: "我是大耳朵图图",
+    avatar: "https://picsum.photos/id/101/100/100",
+    title: "幼儿园扛把子",
+    description: "梦想是成为像樱木花道一样厉害的人"
+  },
+  {
+    name: "不爱吃胡萝卜",
+    avatar: "https://picsum.photos/id/102/100/100",
+    title: "挑食大王",
+    description: "只喜欢吃肉，但答题速度飞快"
+  },
+  {
+    name: "学霸是我的昵称",
+    avatar: "https://picsum.photos/id/103/100/100",
+    title: "伪装者",
+    description: "擅长出其不意，可能上一秒还在玩泥巴，下一秒就答对了"
+  },
+  {
+    name: "宇宙无敌小可爱",
+    avatar: "https://picsum.photos/id/104/100/100",
+    title: "人见人爱花见花开",
+    description: "性格开朗，知识面广，尤其擅长科学常识"
+  },
+  {
+    name: "今天不想写作业",
+    avatar: "https://picsum.photos/id/105/100/100",
+    title: "拖延症晚期",
+    description: "总是在最后一刻才提交答案，但正确率惊人"
+  },
+  {
+    name: "爱吃薯条的小明",
+    avatar: "https://picsum.photos/id/106/100/100",
+    title: "美食家",
+    description: "通过吃各种食物来获取能量，所以答题速度时快时慢"
+  },
+  {
+    name: "我的滑板鞋时尚",
+    avatar: "https://picsum.photos/id/107/100/100",
+    title: "街头潮流达人",
+    description: "答题风格酷炫，喜欢用最短的时间解决问题"
+  },
+  {
+    name: "每天都想睡懒觉",
+    avatar: "https://picsum.photos/id/108/100/100",
+    title: "睡眠充足星人",
+    description: "答题时反应迟钝，但偶尔会爆发出超常的智慧"
+  },
+  {
+    name: "我是幼儿园小班长",
+    avatar: "https://picsum.photos/id/109/100/100",
+    title: "班级小领袖",
+    description: "擅长号召大家一起答题，有很强的团队精神"
+  },
+  {
+    name: "偷偷学习的学渣",
+    avatar: "https://picsum.photos/id/110/100/100",
+    title: "隐藏大佬",
+    description: "看起来漫不经心，其实已经背完了所有课文"
+  },
+  {
+    name: "不想上班的杰瑞",
+    avatar: "https://picsum.photos/id/111/100/100",
+    title: "职场新人",
+    description: "偶尔会把职场上的经验用在答题上"
+  },
+  {
+    name: "月亮不睡我不睡",
+    avatar: "https://picsum.photos/id/112/100/100",
+    title: "熬夜冠军",
+    description: "白天昏昏欲睡，晚上精神百倍"
+  },
+  {
+    name: "吃瓜群众小王",
+    avatar: "https://picsum.photos/id/113/100/100",
+    title: "八卦小能手",
+    description: "对各种新鲜事了如指掌"
+  },
+  {
+    name: "今天也是元气满满",
+    avatar: "https://picsum.photos/id/114/100/100",
+    title: "能量满满小太阳",
+    description: "不管遇到什么难题，总是笑着面对"
+  },
+  {
+    name: "我爱学习，学习爱我",
+    avatar: "https://picsum.photos/id/115/100/100",
+    title: "口号喊得响",
+    description: "喜欢在答题前喊口号，给自己打气"
+  },
+  {
+    name: "懒癌晚期",
+    avatar: "https://picsum.photos/id/116/100/100",
+    title: "能坐着就不站着",
+    description: "喜欢用最简单的方式解决问题，所以思路特别清奇"
+  },
+  {
+    name: "我是你的小可爱",
+    avatar: "https://picsum.photos/id/117/100/100",
+    title: "萌新小白",
+    description: "刚开始玩，什么都不懂，所以可能会答错"
+  },
+  {
+    name: "不折腾不舒服斯基",
+    avatar: "https://picsum.photos/id/118/100/100",
+    title: "探险家",
+    description: "喜欢挑战各种高难度题目，越难越兴奋"
+  },
+  {
+    name: "我的猫咪是学霸",
+    avatar: "https://picsum.photos/id/119/100/100",
+    title: "铲屎官",
+    description: "答题前会先和猫咪商量一下"
+  },
+  {
+    name: "我是隔壁老王",
+    avatar: "https://picsum.photos/id/120/100/100",
+    title: "低调高手",
+    description: "平时不声不响，关键时刻总能答对"
   }
-};
+];
 
 const questionBank: Record<string, QuestionType[]> = {
   语文: [
