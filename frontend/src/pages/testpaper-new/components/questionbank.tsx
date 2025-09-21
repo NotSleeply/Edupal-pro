@@ -50,6 +50,8 @@ import {
   gradeOptions,
 } from "@/types/Options";
 import { toast } from "sonner";
+// 导入模拟题库
+import { mockQuestionBank } from "../../question-new/components/data";
 
 export default function QuestionTable() {
   const dispatch = useAppDispatch();
@@ -72,26 +74,107 @@ export default function QuestionTable() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const params = Object.fromEntries(
-          Object.entries({
-            subject: subject,
-            difficulty: difficulty,
-            type: type,
-            grade: grade,
-            page: currentPage + 1,
-            page_size: currentPageSize,
-          }).filter(([_, v]) => v !== "all")
-        );
-        const res = await getQuestions(params);
-        const mapped = (res.data || []).map((item: any) => ({
-          ...item,
-          question: item.content.trim(),
-          type: item.type || "未知",
-        }));
-        setData(mapped);
-        setTotalCount(res.total_count || 0);
+        let backendQuestions: QuestionDetail[] = [];
+        let cacheQuestions: QuestionDetail[] = [];
+
+        // 1. 尝试从后端获取题目
+        try {
+          const params = Object.fromEntries(
+            Object.entries({
+              subject: subject,
+              difficulty: difficulty,
+              type: type,
+              grade: grade,
+              page: currentPage + 1,
+              page_size: currentPageSize,
+            }).filter(([_, v]) => v !== "all")
+          );
+          const res = await getQuestions(params);
+          backendQuestions = (res.data || []).map((item: any) => ({
+            ...item,
+            question: item.content?.trim() || "",
+            type: item.type || "未知",
+          }));
+        } catch (error) {
+          console.warn("后端题目获取失败，使用缓存题目:", error);
+        }
+
+        // 2. 从 mockQuestionBank 读取预设题目
+        Object.entries(mockQuestionBank).forEach(([subjectKey, subjectData]) => {
+          Object.entries(subjectData).forEach(([typeKey, questionList]) => {
+            questionList.forEach((q, index) => {
+              cacheQuestions.push({
+                id: `mock_${subjectKey}_${typeKey}_${index}`,
+                question: q.content,
+                content: q.content,
+                type: typeKey,
+                subject: subjectKey,
+                difficulty: "中等", // 默认难度
+                grade: "通用", // 默认年级
+                options: q.options || [],
+                answer: q.answer,
+                explanation: q.explanation,
+                creator: "系统预设"
+              });
+            });
+          });
+        });
+
+        // 3. 从 localStorage 读取 AI 生成的题目
+        const allMockKeys = Object.keys(localStorage).filter(key => key.startsWith("questions_mock_"));
+        allMockKeys.forEach(key => {
+          const arr = JSON.parse(localStorage.getItem(key) || "[]");
+          const mappedArr = arr.map((item: any, idx: number) => ({
+            id: item.id?.toString() || `${key}_${idx}`,
+            question: item.content || item.question || "",
+            content: item.content || item.question || "",
+            type: item.type || "未知",
+            subject: item.subject || "未知",
+            difficulty: item.difficulty || "未知",
+            grade: item.grade || "未知",
+            options: item.options || [],
+            answer: item.answer || "",
+            explanation: item.explanation || "",
+            creator: item.creator || "AI助手"
+          }));
+          cacheQuestions = cacheQuestions.concat(mappedArr);
+        });
+
+        // 4. 合并所有题目并应用过滤器
+        let allQuestions = [...cacheQuestions, ...backendQuestions];
+
+        // 应用过滤器
+        if (subject && subject !== "all") {
+          allQuestions = allQuestions.filter(q => q.subject === subject);
+        }
+        if (type && type !== "all") {
+          allQuestions = allQuestions.filter(q => q.type === type);
+        }
+        if (difficulty && difficulty !== "all") {
+          allQuestions = allQuestions.filter(q => q.difficulty === difficulty);
+        }
+        if (grade && grade !== "all") {
+          allQuestions = allQuestions.filter(q => q.grade === grade);
+        }
+        if (search) {
+          allQuestions = allQuestions.filter(q => 
+            q.question?.toLowerCase().includes(search.toLowerCase()) ||
+            q.content?.toLowerCase().includes(search.toLowerCase())
+          );
+        }
+
+        // 5. 分页处理
+        const startIndex = currentPage * currentPageSize;
+        const endIndex = startIndex + currentPageSize;
+        const paginatedQuestions = allQuestions.slice(startIndex, endIndex);
+
+        setData(paginatedQuestions);
+        setTotalCount(allQuestions.length);
+        
       } catch (error) {
         console.error("获取题库数据失败:", error);
+        setData([]);
+        setTotalCount(0);
       }
     };
     fetchData();
@@ -109,6 +192,7 @@ export default function QuestionTable() {
       return;
     }
     dispatch(addQuestions(question));
+    toast.success(`已添加题目：${question.question}`);
   };
 
   const columns: ColumnDef<QuestionDetail>[] = useMemo(
@@ -124,7 +208,9 @@ export default function QuestionTable() {
           </Button>
         ),
         cell: ({ getValue }) => (
-          <div className="max-w-[200px] truncate">{getValue() as string}</div>
+          <div className="max-w-[200px] truncate" title={getValue() as string}>
+            {getValue() as string}
+          </div>
         ),
       },
       {
@@ -139,6 +225,8 @@ export default function QuestionTable() {
                 ? "bg-green-50 text-green-600"
                 : getValue() === "物理"
                 ? "bg-purple-50 text-purple-600"
+                : getValue() === "化学"
+                ? "bg-yellow-50 text-yellow-600"
                 : "bg-gray-50 text-gray-700"
             }`}
           >
@@ -156,9 +244,22 @@ export default function QuestionTable() {
       {
         accessorKey: "difficulty",
         header: "难度",
-        cell: ({ getValue }) => (
-          <div className="max-w-[150px] truncate">{getValue() as string}</div>
-        ),
+        cell: ({ getValue }) => {
+          const difficulty = getValue() as string;
+          return (
+            <div className={`max-w-[150px] truncate px-2 py-1 rounded text-xs font-medium ${
+              difficulty === "简单" 
+                ? "bg-green-100 text-green-700"
+                : difficulty === "中等"
+                ? "bg-yellow-100 text-yellow-700"
+                : difficulty === "困难"
+                ? "bg-red-100 text-red-700"
+                : "bg-gray-100 text-gray-700"
+            }`}>
+              {difficulty}
+            </div>
+          );
+        },
       },
       {
         accessorKey: "grade",
@@ -166,6 +267,24 @@ export default function QuestionTable() {
         cell: ({ getValue }) => (
           <div className="max-w-[150px] truncate">{getValue() as string}</div>
         ),
+      },
+      {
+        accessorKey: "creator",
+        header: "来源",
+        cell: ({ getValue }) => {
+          const creator = getValue() as string;
+          return (
+            <div className={`max-w-[100px] truncate text-xs px-2 py-1 rounded ${
+              creator === "系统预设"
+                ? "bg-blue-100 text-blue-700"
+                : creator === "AI助手"
+                ? "bg-purple-100 text-purple-700"
+                : "bg-gray-100 text-gray-700"
+            }`}>
+              {creator}
+            </div>
+          );
+        },
       },
       {
         id: "actions",
@@ -197,6 +316,8 @@ export default function QuestionTable() {
     ],
     []
   );
+
+  // ...existing table configuration and rendering code remains the same...
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -444,7 +565,7 @@ export default function QuestionTable() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-6">
         <div className="text-sm font-medium text-gray-600 bg-gray-50 px-4 py-2 rounded-lg">
           共 <span className="font-bold text-gray-900">{totalCount}</span>{" "}
-          条记录
+          条记录 (包含缓存题目)
         </div>
         <div className="flex flex-wrap items-center gap-4 md:gap-6">
           <div className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg">
