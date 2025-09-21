@@ -1,18 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Folder } from "lucide-react";
 import PKComponent from "./components/pk";
 import MyCourses, { CourseCardProps } from "./components/courses";
 import AddCourseDialog from "./components/AddCourseDialog";
-import { defaultCourses, randomImg, randomTeacher, randomName } from "./types/data";
+import { defaultCourses } from "./types/data";
+
+const LOCAL_KEY = "student_dashboard_courses";
 
 const StudentDashboard = () => {
-  const [courses, setCourses] = useState<CourseCardProps[]>(defaultCourses);
+  // 初始化时从 localStorage 读取
+  const [courses, setCourses] = useState<CourseCardProps[]>(() => {
+    const saved = localStorage.getItem(LOCAL_KEY);
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch {
+        console.warn("无法解析本地存储的课程数据");
+      }
+    }
+    return defaultCourses;
+  });
   const [showDialog, setShowDialog] = useState(false);
 
+  // 每次课程变化时保存
+  useEffect(() => {
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(courses));
+  }, [courses]);
+
   const handleAddCourse = (course: CourseCardProps) => {
-    setCourses([...courses, course]);
+    setCourses((prev) => [...prev, course]);
     setShowDialog(false);
   };
 
@@ -37,9 +55,6 @@ const StudentDashboard = () => {
           open={showDialog}
           onClose={() => setShowDialog(false)}
           onAdd={handleAddCourse}
-          randomName={randomName}
-          randomTeacher={randomTeacher}
-          randomImg={randomImg}
         />
 
         <Tabs defaultValue="my-courses" className="space-y-4">

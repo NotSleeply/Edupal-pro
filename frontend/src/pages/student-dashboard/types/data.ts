@@ -53,24 +53,66 @@ const defaultCourses: CourseCardProps[] = [
   },
 ];
 
-const randomImg = [
-  "https://picsum.photos/300/180?random=1",
-  "https://picsum.photos/300/180?random=2",
-  "https://picsum.photos/300/180?random=3",
-  "https://picsum.photos/300/180?random=4",
-  "https://picsum.photos/300/180?random=5",
+// 添加课程数据
+const CourseMeta : CourseCardProps[]= [
+  {
+    id:1234,
+    image: "https://picsum.photos/300/180?random=1",
+    teacher: "张伊宁",
+    niandu: "辽宁科技大学",
+    title: "Linux网络管理",
+  },
+  {
+    id:1235,
+    image: "https://picsum.photos/300/180?random=2",
+    teacher: "李明",
+    niandu: "辽宁科技大学",
+    title: "Windows系统管理",
+  },
+  {
+    id:1236,
+    image: "https://picsum.photos/300/180?random=3",
+    teacher: "王天棚",
+    niandu: "辽宁科技大学",
+    title: "C++程序设计",
+  },
+  {
+    id:1237,
+    image: "https://picsum.photos/300/180?random=4",
+    teacher: "赵二瞪",
+    niandu: "辽宁科技大学",
+    title: "周五体育足球",
+  },
+  {
+    id:1238,
+    image: "https://picsum.photos/300/180?random=5",
+    teacher: "钱三思",
+    niandu: "辽宁科技大学",
+    title: "Python编程",
+  },
+  {
+    id  :1239,
+    image: "https://picsum.photos/300/180?random=1",
+    teacher: "孙四海",
+    niandu: "辽宁科技大学",
+    title: "数据结构",
+  },
+  {
+    id:1240,
+    image: "https://picsum.photos/300/180?random=2",
+    teacher: "周五福",
+    niandu: "辽宁科技大学",
+    title: "操作系统",
+  },
+  {
+    id:1241,
+    image: "https://picsum.photos/300/180?random=3",
+    teacher: "吴六郎",
+    niandu: "辽宁科技大学",
+    title: "计算机网络",
+  },
 ];
-const randomTeacher = ["张伊宁", "李明", "王天棚", "赵二瞪", "钱三思", "孙四海", "周五福", "吴六郎"];
-const randomName = [
-  "Linux网络管理",
-  "Windows系统管理",
-  "C++程序设计",
-  "周五体育足球",
-  "Python编程",
-  "数据结构",
-  "操作系统",
-  "计算机网络",
-];
+
 
 // PK 对手
 const subjectOpponents: OpponentType[] = [
@@ -927,4 +969,4 @@ const mockGrades: GradeItem[] = [
   { id: 26, name: "李大脖子", score: 0, rank: 26 },
 ];
 
-export { defaultCourses, randomImg, randomTeacher, randomName, questionBank, subjectOpponents,mockGrades };
+export { defaultCourses, CourseMeta, questionBank, subjectOpponents,mockGrades };

@@ -23,7 +23,7 @@ const CourseDetail = () => {
         </TabsList>
         <TabsContent value="homework">
           {!course ? (
-            <div className="p-4 text-center text-muted-foreground">未找到课程</div>
+            <div className="p-4 text-center text-muted-foreground">本课程未发布作业...</div>
           ) : (
             <CourseHomework questions={questions} />
           )}
