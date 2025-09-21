@@ -1,4 +1,4 @@
-import type { QuestionType, OpponentType,CourseCardProps } from "./types";
+import type { QuestionType, OpponentType,CourseCardProps,GradeItem } from "./types";
 
 // 课程数据
 const defaultCourses: CourseCardProps[] = [
@@ -898,4 +898,33 @@ const questionBank: Record<string, QuestionType[]> = {
   ]
 };
 
-export { defaultCourses, randomImg, randomTeacher, randomName, questionBank, subjectOpponents };
+const mockGrades: GradeItem[] = [
+  { id: 1, name: "小天才", score: 98, rank: 1 },
+  { id: 2, name: "雷霆击锤黑暗", score: 92, rank: 2 },
+  { id: 3, name: "草丛大汉", score: 89, rank: 3 },
+  { id: 4, name: "暴王龙小分队", score: 85, rank: 4 },
+  { id: 5, name: "你", score: 83, rank: 5 },
+  { id: 6, name: "地理通", score: 80, rank: 6 },
+  { id: 7, name: "学霸小明", score: 79, rank: 7 },
+  { id: 8, name: "快乐小猪", score: 78, rank: 8 },
+  { id: 9, name: "机智小王", score: 77, rank: 9 },
+  { id: 10, name: "努力小李", score: 76, rank: 10 },
+  { id: 11, name: "爱笑的你", score: 75, rank: 11 },
+  { id: 12, name: "小小书童", score: 74, rank: 12 },
+  { id: 13, name: "追风少年", score: 73, rank: 13 },
+  { id: 14, name: "梦想家", score: 72, rank: 14 },
+  { id: 15, name: "小机灵", score: 71, rank: 15 },
+  { id: 16, name: "阳光女孩", score: 70, rank: 16 },
+  { id: 17, name: "数学小王子", score: 69, rank: 17 },
+  { id: 18, name: "英语达人", score: 68, rank: 18 },
+  { id: 19, name: "科学小博士", score: 67, rank: 19 },
+  { id: 20, name: "文艺青年", score: 66, rank: 20 },
+  { id: 21, name: "历史迷", score: 65, rank: 21 },
+  { id: 22, name: "小画家", score: 64, rank: 22 },
+  { id: 23, name: "音乐精灵", score: 63, rank: 23 },
+  { id: 24, name: "小诗人", score: 62, rank: 24 },
+  { id: 25, name: "运动健将", score: 61, rank: 25 },
+  { id: 26, name: "李大脖子", score: 60, rank: 26 },
+];
+
+export { defaultCourses, randomImg, randomTeacher, randomName, questionBank, subjectOpponents,mockGrades };

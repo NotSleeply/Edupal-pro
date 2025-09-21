@@ -22,4 +22,11 @@ type CourseCardProps = {
   image: string;
 };
 
-export type { QuestionType, OpponentType,CourseCardProps };
+interface GradeItem {
+  id: number;
+  name: string;
+  score: number;
+  rank: number;
+}
+
+export type { QuestionType, OpponentType, CourseCardProps, GradeItem };

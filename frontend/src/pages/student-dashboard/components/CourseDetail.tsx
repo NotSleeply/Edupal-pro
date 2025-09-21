@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { defaultCourses, questionBank } from "../types/data";
 import type { QuestionType } from "../types/types";
 import CourseHomework from "./CourseHomework";
+import CourseGrades from "./CourseGrades";
 
 const CourseDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -33,9 +34,7 @@ const CourseDetail = () => {
           </div>
         </TabsContent>
         <TabsContent value="grades">
-          <div className="p-4 text-center text-muted-foreground">
-            本课程未发布成绩...
-          </div>
+          <CourseGrades />
         </TabsContent>
       </Tabs>
     </div>
