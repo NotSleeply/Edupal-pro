@@ -1,5 +1,6 @@
 import type { QuestionType, OpponentType,CourseCardProps } from "./types";
 
+// 课程数据
 const defaultCourses: CourseCardProps[] = [
   {
     id: 1,
@@ -71,7 +72,7 @@ const randomName = [
   "计算机网络",
 ];
 
-// PK功能相关数据
+// PK 对手
 const subjectOpponents: OpponentType[] = [
   {
     name: "文言达人",
@@ -213,6 +214,7 @@ const subjectOpponents: OpponentType[] = [
   }
 ];
 
+// 题库
 const questionBank: Record<string, QuestionType[]> = {
   语文: [
     {
