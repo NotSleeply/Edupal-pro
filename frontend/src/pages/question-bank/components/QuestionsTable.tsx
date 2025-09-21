@@ -43,9 +43,7 @@ import { setFilter } from "@/modules/question";
 import { useAppDispatch, useAppSelector } from "@/modules/stores";
 import { useEffect, useState, useMemo } from "react";
 import { getQuestions } from "@/api/question";
-import QuestionDialog,{QuestionDetail} from "@/components/dialog/QuestionDialog";
-
-
+import QuestionDialog, { QuestionDetail } from "@/components/dialog/QuestionDialog";
 
 export default function QuestionTable() {
   const dispatch = useAppDispatch();
@@ -62,13 +60,15 @@ export default function QuestionTable() {
   const [data, setData] = useState<QuestionDetail[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
 
-  const [selectedQuestion, setSelectedQuestion] = useState<QuestionDetail| null>(
+  const [selectedQuestion, setSelectedQuestion] = useState<QuestionDetail | null>(
     null
   );
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      // ...原有后端请求...
+      let mapped = []; // 后端返回的题目
       try {
         const params = Object.fromEntries(
           Object.entries({
@@ -81,17 +81,37 @@ export default function QuestionTable() {
           }).filter(([_, v]) => v !== "all")
         );
         const res = await getQuestions(params);
-        const mapped = (res.data || []).map((item: any) => ({
+        mapped = (res.data || []).map((item: any) => ({
           ...item,
-          question: item.content.trim(),
+          question: item.content?.trim() || "",
           type: item.type || "未知",
         }));
-        setData(mapped);
-        setTotalCount(res.total_count || 0);
-      } catch (error) {
-        console.error("获取题库数据失败:", error);
-      }
+      } catch {}
+
+      // 读取所有本地 mock 题目
+      const allMockKeys = Object.keys(localStorage).filter(key => key.startsWith("questions_mock_"));
+      let mockQuestions: any[] = [];
+      allMockKeys.forEach(key => {
+        const arr = JSON.parse(localStorage.getItem(key) || "[]");
+        // 字段映射，保证和表格一致
+        const mappedArr = arr.map((item: any, idx: number) => ({
+          ...item,
+          id: item.id?.toString() || `${key}_${idx}`,
+          question: item.content || item.question || "",
+          type: item.type || "未知",
+          subject: item.subject || "未知",
+          difficulty: item.difficulty || "未知",
+          grade: item.grade || "未知",
+        }));
+        mockQuestions = mockQuestions.concat(mappedArr);
+      });
+
+      // 合并
+      const allQuestions = [...mockQuestions, ...mapped];
+      setData(allQuestions);
+      setTotalCount(allQuestions.length);
     };
+
     fetchData();
   }, [currentPage, currentPageSize, search, subject, difficulty, type, grade]);
 
