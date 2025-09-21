@@ -20,31 +20,34 @@ const PKQuestionPanel: React.FC<PKQuestionPanelProps> = ({
 }) => {
   if (question.type === "选择题" || question.type === "判断题") {
     return (
-      <div className="grid gap-4 mt-6 w-full max-w-3xl mx-auto">
-        {question.options?.map((option) => (
-          <button
-            key={option}
-            className={`px-6 py-4 rounded-lg text-left transition-all duration-200 text-lg font-normal w-full ${
-              isAnswered
-                ? option === question.answer
-                  ? "bg-gray-100 border-gray-600 text-gray-800 border-2"
-                  : userAnswer === option
-                  ? "bg-gray-200 border-gray-400 text-gray-600 border-2"
-                  : "bg-gray-100 text-gray-500 border border-gray-200"
-                : "bg-white border border-gray-300 hover:border-gray-500 hover:bg-gray-50"
-            }`}
-            onClick={() => onOptionClick(option)}
-            disabled={isAnswered}
-          >
-            {option}
-          </button>
-        ))}
+      <div className="mt-6 w-full max-w-3xl mx-auto">
+        <div className="mb-4 text-lg font-medium text-gray-800">{question.question}</div>
+        <div className="grid gap-4">
+          {question.options?.map((option) => (
+            <button
+              key={option}
+              className={`px-6 py-4 rounded-lg text-left transition-all duration-200 text-lg font-normal w-full ${isAnswered
+                  ? option === question.answer
+                    ? "bg-gray-100 border-gray-600 text-gray-800 border-2"
+                    : userAnswer === option
+                      ? "bg-gray-200 border-gray-400 text-gray-600 border-2"
+                      : "bg-gray-100 text-gray-500 border border-gray-200"
+                  : "bg-white border border-gray-300 hover:border-gray-500 hover:bg-gray-50"
+                }`}
+              onClick={() => onOptionClick(option)}
+              disabled={isAnswered}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
       </div>
     );
   }
   if (question.type === "填空题" || question.type === "计算题") {
     return (
       <div className="mt-6 w-full max-w-2xl mx-auto">
+        <div className="mb-4 text-lg font-medium text-gray-800">{question.question}</div>
         <input
           type="text"
           className="w-full px-6 py-4 border-2 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-gray-500 text-lg"
