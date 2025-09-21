@@ -15,7 +15,66 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/modules/stores";
 import { setTraceSourceId } from "@/modules/question";
 import { genQuestions } from "@/api/question";
+import { mockQuestionBank } from "./data";
 import { toast } from "sonner";
+
+
+// 生成模拟问题的函数
+const generateMockQuestions = (questionTypesArray: string[], options: typeof aiOptions) => {
+  const mockQuestions = [];
+  const subjectBank = mockQuestionBank[options.subject as keyof typeof mockQuestionBank] || mockQuestionBank.数学;
+  
+  questionTypesArray.forEach((type, index) => {
+    const baseId = Date.now() + index;
+    let mockQuestion;
+    
+    // 获取对应题型的题目库
+    const typeKey = type === "选择题" ? "选择题" : 
+                   type === "判断题" ? "判断题" : 
+                   type === "计算题" ? "计算题" : "填空题";
+    
+    const questionPool = subjectBank[typeKey as keyof typeof subjectBank] || [];
+    
+    if (questionPool.length > 0) {
+      // 随机选择一道题目
+      const randomIndex = Math.floor(Math.random() * questionPool.length);
+      const selectedQuestion = questionPool[randomIndex];
+      
+      mockQuestion = {
+        id: baseId,
+        content: selectedQuestion.content,
+        type: type,
+        subject: options.subject,
+        grade: options.grade,
+        difficulty: Array.isArray(options.difficulty) ? options.difficulty[index] : options.difficulty,
+        creator: "AI助手",
+        options: selectedQuestion.options,
+        answer: selectedQuestion.answer,
+        explanation: selectedQuestion.explanation
+      };
+    } else {
+      // 如果没有对应题型的题目，生成默认题目
+      mockQuestion = {
+        id: baseId,
+        content: `关于${options.content}的${type}问题 ${index + 1}`,
+        type: type,
+        subject: options.subject,
+        grade: options.grade,
+        difficulty: Array.isArray(options.difficulty) ? options.difficulty[index] : options.difficulty,
+        creator: "AI助手",
+        options: type === "选择题" ? ["A. 选项一", "B. 选项二", "C. 选项三", "D. 选项四"] : 
+                type === "判断题" ? ["正确", "错误"] : [],
+        answer: type === "选择题" ? "A" : type === "判断题" ? "正确" : "示例答案",
+        explanation: `这是关于${options.content}的详细解析...`
+      };
+    }
+    
+    mockQuestions.push(mockQuestion);
+  });
+  
+  return mockQuestions;
+};
+
 export default function GenQuestion() {
   const dispatch = useAppDispatch();
   const reduxTrace = useAppSelector((state) => state.question.trace);
@@ -83,7 +142,7 @@ export default function GenQuestion() {
     }));
   };
 
-  // 生成问题的逻辑
+  // 修改后的生成问题逻辑
   const handleGenerate = async () => {
     if (
       aiOptions.subject === "" ||
@@ -102,40 +161,60 @@ export default function GenQuestion() {
           questionTypes.find((type) => type.key === key)?.label || key;
         return Array(count).fill(label); // 根据count 数量填入题型
       });
-    // 创建与题型数组相同长度的其他参数数组
-    const repeatArray = (length: number, value: any) =>
-      new Array(length).fill(value);
 
-    const params = {
-      subjects: repeatArray(questionTypesArray.length, aiOptions.subject), // 使用重复的 subject 数组
-      knowledge_points: repeatArray(
-        questionTypesArray.length,
-        aiOptions.content
-      ), // 使用重复的 content 数组
-      grades: repeatArray(questionTypesArray.length, aiOptions.grade), // 使用重复的 grade 数组
-      difficulties: repeatArray(
-        questionTypesArray.length,
-        aiOptions.difficulty
-      ),
-      types: questionTypesArray, // 使用题型数组
-    };
-    if (aiOptions.difficulty === "混合") {
-      // 随机生成难度
-      const difficulties = ["简单", "中等", "困难"];
-      const randomDifficulties = Array.from(
-        { length: questionTypesArray.length },
-        () => difficulties[Math.floor(Math.random() * difficulties.length)]
-      );
-      params.difficulties = randomDifficulties; // 使用随机生成的难度数组
+    // 检查是否有启用的题型
+    if (questionTypesArray.length === 0) {
+      toast.error("请至少选择一种题型！");
+      return;
     }
 
-    const res = await genQuestions({
-      ...params,
-      source_id: reduxTrace.sourceId,
-    });
-    if (res.source_id) {
-      dispatch(setTraceSourceId(res.source_id)); // 设置批次 ID
-      toast.success("生成任务创建成功！请稍后。");
+    try {
+      // 创建与题型数组相同长度的其他参数数组
+      const repeatArray = (length: number, value: any) =>
+        new Array(length).fill(value);
+
+      const params = {
+        subjects: repeatArray(questionTypesArray.length, aiOptions.subject),
+        knowledge_points: repeatArray(questionTypesArray.length, aiOptions.content),
+        grades: repeatArray(questionTypesArray.length, aiOptions.grade),
+        difficulties: repeatArray(questionTypesArray.length, aiOptions.difficulty),
+        types: questionTypesArray,
+      };
+
+      if (aiOptions.difficulty === "混合") {
+        const difficulties = ["简单", "中等", "困难"];
+        const randomDifficulties = Array.from(
+          { length: questionTypesArray.length },
+          () => difficulties[Math.floor(Math.random() * difficulties.length)]
+        );
+        params.difficulties = randomDifficulties;
+      }
+
+      const res = await genQuestions({
+        ...params,
+        source_id: reduxTrace.sourceId,
+      });
+
+      if (res.source_id) {
+        dispatch(setTraceSourceId(res.source_id));
+        toast.success("生成任务创建成功！请稍后。");
+      }
+    } catch (error) {
+      // 当后端 AI 生成失败时，生成模拟问题
+      console.warn("AI 生成失败，使用模拟问题生成:", error);
+      
+      // 生成模拟问题数据
+      const mockQuestions = generateMockQuestions(questionTypesArray, aiOptions);
+      
+      // 创建一个新的 source_id
+      const newSourceId = `mock_${Date.now()}`;
+      dispatch(setTraceSourceId(newSourceId));
+      
+      // 将模拟数据存储到 localStorage（模拟后端存储）
+      const existingQuestions = JSON.parse(localStorage.getItem(`questions_${newSourceId}`) || '[]');
+      localStorage.setItem(`questions_${newSourceId}`, JSON.stringify([...existingQuestions, ...mockQuestions]));
+      
+      toast.success(`已生成${mockQuestions.length}道模拟问题！`);
     }
   };
 

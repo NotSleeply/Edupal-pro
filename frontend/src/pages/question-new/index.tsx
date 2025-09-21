@@ -3,11 +3,9 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import GenQuestion from "@/pages/question-new/components/GenQuestion";
-import QuestionList from "@/pages/question-new/components/QuestionList";
-import QuestionDialog, {
-  QuestionDetail,
-} from "@/components/dialog/QuestionDialog";
+import GenQuestionCp from "@/pages/question-new/components/GenQuestionCp";
+import QuestionListCp from "@/pages/question-new/components/QuestionListCp";
+import QuestionDialogCp from "./components/QuestionDialogCp";
 export default function GeneratePage() {
   const [tabValue, setTabValue] = useState("ai");
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -47,18 +45,18 @@ export default function GeneratePage() {
               </TabsList>
 
               <TabsContent value="ai">
-                <GenQuestion />
+                <GenQuestionCp />
               </TabsContent>
             </Tabs>
           </div>
 
           <div className="space-y-4">
-            <QuestionList />
+            <QuestionListCp />
           </div>
         </div>
       </main>
 
-      <QuestionDialog
+      <QuestionDialogCp
         open={dialogOpen}
         onOpenChange={setDialogOpen}
         data={selectedQuestion}
