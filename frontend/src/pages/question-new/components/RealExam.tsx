@@ -2,95 +2,117 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import SelectInput from "@/components/ui/my-selectinput";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function RealExam() {
+export default function TrueExamModule() {
   const [subject, setSubject] = useState("");
   const [year, setYear] = useState("");
   const [keyword, setKeyword] = useState("");
-  const [results, setResults] = useState<string[]>([]);
+
+  const [examSets, setExamSets] = useState<string[][]>([]);
+  const [similarSet, setSimilarSet] = useState<string[]>([]);
 
   const handleSearch = () => {
-    // 假数据占位，后面你可以改成请求后端接口
-    const fakeData = [
-      "2022 年高考数学全国卷一 真题",
-      "2021 年高考数学全国卷二 真题",
-      "2020 年高考数学全国卷三 真题",
+    // 模拟生成 1~2 套占位真题
+    const sets = [
+      [
+        `【真题 1】${subject || "某学科"} ${year || "某年份"} 基础题 ……`,
+        `【真题 2】涉及 ${keyword || "某知识点"} 的考题 ……`,
+      ],
+      [
+        `【真题 3】${subject || "学科"} ${year || "年份"} 进阶题 ……`,
+        `【真题 4】与 ${keyword || "主题"} 相关的思考题 ……`,
+      ],
     ];
+    const count = Math.random() > 0.5 ? 2 : 1;
+    setExamSets(sets.slice(0, count));
 
-    const filtered = fakeData.filter((item) => {
-      return (
-        (subject ? item.includes(subject) : true) &&
-        (year ? item.includes(year) : true) &&
-        (keyword ? item.includes(keyword) : true)
-      );
-    });
-
-    setResults(filtered);
+    // 相似题（右侧固定一套）
+    setSimilarSet([
+      `【AI 相似题 1】基于 ${subject || "学科"} 的变式题 ……`,
+      `【AI 相似题 2】结合 ${keyword || "主题"} 的拓展题 ……`,
+    ]);
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>真题模拟</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {/* 筛选条件 */}
-        <div className="grid grid-cols-3 gap-4">
-          <SelectInput
-            id="subject"
-            label="学科"
-            value={subject}
-            options={["数学", "语文", "英语", "物理", "化学", "生物", "历史", "地理", "政治"]}
-            onChange={setSubject}
-            placeholder="选择学科"
-          />
+    <div className="grid grid-cols-2 gap-6">
+      {/* 左侧：筛选 + 真题结果 */}
+      <Card>
+        <CardHeader>
+          <CardTitle>真题筛选</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* 筛选条件 */}
+          <div className="space-y-4">
+            <select
+              className="border p-2 rounded w-full"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+            >
+              <option value="">选择学科</option>
+              <option value="数学">数学</option>
+              <option value="英语">英语</option>
+            </select>
 
-          <SelectInput
-            id="year"
-            label="年份"
-            value={year}
-            options={[
-              "2025", "2024", "2023", "2022", "2021",
-              "2020", "2019", "2018", "2017", "2016"
-            ]}
-            onChange={setYear}
-            placeholder="选择年份"
-          />
+            <select
+              className="border p-2 rounded w-full"
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+            >
+              <option value="">选择年份</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+            </select>
 
-          <div className="space-y-2">
-            <Label htmlFor="keyword">关键字</Label>
             <Input
-              id="keyword"
-              placeholder="输入关键字"
+              placeholder="输入关键词"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
             />
+
+            <Button onClick={handleSearch} className="w-full">
+              搜索真题
+            </Button>
           </div>
-        </div>
 
-        {/* 搜索按钮 */}
-        <Button className="w-full" onClick={handleSearch}>
-          搜索真题
-        </Button>
+          {/* 真题结果 */}
+          <div className="space-y-4">
+            {examSets.length === 0 ? (
+              <p className="text-gray-400">暂无真题结果</p>
+            ) : (
+              examSets.map((set, i) => (
+                <div key={i} className="border p-3 rounded">
+                  <p className="font-bold mb-2">真题套卷 {i + 1}</p>
+                  {set.map((q, j) => (
+                    <p key={j} className="ml-2">
+                      {q}
+                    </p>
+                  ))}
+                </div>
+              ))
+            )}
+          </div>
+        </CardContent>
+      </Card>
 
-        {/* 搜索结果 */}
-        <div className="space-y-2">
-          <Label>搜索真题</Label>
-          {results.length > 0 ? (
-            <ul className="list-disc list-inside space-y-1">
-              {results.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul>
+      {/* 右侧：AI 相似题 */}
+      <Card>
+        <CardHeader>
+          <CardTitle>AI 生成相似题</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-2">
+          {similarSet.length === 0 ? (
+            <p className="text-gray-400">暂无生成题</p>
           ) : (
-            <p className="text-sm text-muted-foreground">暂无结果，请尝试调整筛选条件。</p>
+            similarSet.map((q, i) => (
+              <p key={i} className="border p-2 rounded bg-gray-50">
+                {q}
+              </p>
+            ))
           )}
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

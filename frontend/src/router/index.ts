@@ -1,4 +1,4 @@
-//File path: src/router/index.tsx
+// File path: src/router/index.tsx
 import { lazy } from "react";
 
 const routers = [
@@ -30,13 +30,15 @@ const routers = [
     path: "/testpaper/detail",
     component: lazy(() => import("@/pages/testpaper-detail")), // 使用懒加载
   },
-<<<<<<< HEAD
   {
     path: "/student-dashboard",
     component: lazy(() => import("@/pages/student-dashboard")), // 使用懒加载
-  }
-=======
->>>>>>> origin/dev-liu
+  },
+  // ✅ 新增教师端用户管理路由
+  {
+    path: "/teacher",
+    component: lazy(() => import("@/pages/teacher")), // TeacherPage
+  },
 ];
 
 export default routers;

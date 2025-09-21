@@ -32,11 +32,7 @@ export function RegisterForm({ toggleForm, className, ...props }: RegisterFormPr
         toast.success("注册成功，请登录！");
         toggleForm(); // 切换到登录表单
       }
-<<<<<<< HEAD
     } catch{
-=======
-    } catch (error) {
->>>>>>> origin/dev-liu
       toast.error("注册失败，请检查您的信息");
     }
   };

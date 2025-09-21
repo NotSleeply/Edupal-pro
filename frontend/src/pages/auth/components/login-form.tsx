@@ -2,17 +2,10 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-<<<<<<< HEAD
 import { loginSuccess } from "@/modules/auth"; // 假设 login 是你从 Redux 获取的登录 action
 import { useState } from "react";
 import { useAppDispatch } from "@/modules/stores"; // 假设你有一个自定义的 hook 来获取 dispatch
 import { toast } from "sonner"
-=======
-import { login } from "@/modules/auth"; 
-import { useState } from "react";
-import { useAppDispatch } from "@/modules/stores";
-import { toast } from "sonner";
->>>>>>> origin/dev-liu
 import { useNavigate } from "react-router-dom";
 
 export function LoginForm({
@@ -21,7 +14,6 @@ export function LoginForm({
 }: React.ComponentPropsWithoutRef<"form">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-<<<<<<< HEAD
   const dispatch = useAppDispatch(); // 获取 dispatch
   const navigate = useNavigate(); // 使用 useNavigate 进行页面跳转
 
@@ -37,23 +29,6 @@ export function LoginForm({
       }
     } catch {
       toast("登录失败，请检查您的邮箱和密码")
-=======
-  const [role, setRole] = useState<"student" | "teacher">("student"); // 新增身份
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await dispatch(login({ account: email, password, role })).unwrap(); // 传身份
-      if (role === "student") {
-        navigate("/student/dashboard");
-      } else {
-        navigate("/teacher/dashboard");
-      }
-    } catch (e) {
-      toast("登录失败，请检查账号、密码或身份");
->>>>>>> origin/dev-liu
     }
   };
 
@@ -66,50 +41,14 @@ export function LoginForm({
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">登录到您的账户</h1>
         <p className="text-balance text-sm text-muted-foreground">
-<<<<<<< HEAD
           输入您的邮箱以登录账户
         </p>
       </div>
       <div className="grid gap-6">
-=======
-          请选择身份并输入账号登录
-        </p>
-      </div>
-      <div className="grid gap-6">
-        {/* 身份选择 */}
-        <div className="grid gap-2">
-          <Label>身份</Label>
-          <div className="flex gap-4">
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="role"
-                value="student"
-                checked={role === "student"}
-                onChange={() => setRole("student")}
-              />
-              学生
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="role"
-                value="teacher"
-                checked={role === "teacher"}
-                onChange={() => setRole("teacher")}
-              />
-              教师
-            </label>
-          </div>
-        </div>
-
-        {/* 邮箱输入 */}
->>>>>>> origin/dev-liu
         <div className="grid gap-2">
           <Label htmlFor="email">邮箱</Label>
           <Input
             id="email"
-<<<<<<< HEAD
             type="text" // 将 type 从 "email" 改为 "text"
             placeholder="m@example.com"
             value={email}
@@ -117,17 +56,6 @@ export function LoginForm({
             required
           />
         </div>
-=======
-            type="text"
-            placeholder="m@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        {/* 密码输入 */}
->>>>>>> origin/dev-liu
         <div className="grid gap-2">
           <div className="flex items-center">
             <Label htmlFor="password">密码</Label>
@@ -142,7 +70,6 @@ export function LoginForm({
             id="password"
             type="password"
             value={password}
-<<<<<<< HEAD
             onChange={(e) => setPassword(e.target.value)} // 更新 password 状态
             required
           />
@@ -164,22 +91,7 @@ export function LoginForm({
           </svg>
           使用 GitHub 登录
         </Button>
-=======
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
-        {/* 登录按钮 */}
-        <Button type="submit" className="w-full">
-          登录
-        </Button>
->>>>>>> origin/dev-liu
       </div>
     </form>
   );
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/dev-liu
