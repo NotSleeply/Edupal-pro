@@ -1,17 +1,21 @@
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Homework } from "./types";
+import { Button } from "@/components/ui/button";
+import { Send, Eye } from "lucide-react";
+import { Homework, QuestionDetail } from "./types";
 import AddHomeworkForm from "./AddHomeworkForm";
 
 interface HomeworkManagementProps {
   homeworks: Homework[];
-  onAddHomework: (title: string, description: string, deadline: string) => void;
+  onAddHomework: (title: string, description: string, deadline: string, questions: QuestionDetail[]) => void;
+  onPublishHomework?: (homeworkId: number) => void; // 新增发布功能
 }
 
 const HomeworkManagement: React.FC<HomeworkManagementProps> = ({
   homeworks,
   onAddHomework,
+  onPublishHomework,
 }) => (
   <Card>
     <CardHeader>
@@ -39,6 +43,31 @@ const HomeworkManagement: React.FC<HomeworkManagementProps> = ({
                 <p className="text-sm text-muted-foreground mt-2">
                   截止时间: {homework.deadline}
                 </p>
+                
+              </div>
+              
+              {/* 操作按钮 */}
+              <div className="flex items-center gap-2 ml-4">
+                {homework.status === "draft" ? (
+                  <Button
+                    size="sm"
+                    onClick={() => onPublishHomework?.(homework.id)}
+                    className="flex items-center gap-1"
+                  >
+                    <Send className="h-4 w-4" />
+                    发布
+                  </Button>
+                ) : (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    disabled
+                    className="flex items-center gap-1"
+                  >
+                    <Eye className="h-4 w-4" />
+                    已发布
+                  </Button>
+                )}
               </div>
             </div>
           </div>

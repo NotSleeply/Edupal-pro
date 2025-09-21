@@ -1,9 +1,20 @@
-
 interface Student {
   id: number;
   name: string;
   studentId: string;
   email: string;
+}
+
+interface QuestionDetail {
+  id: string | number;
+  content: string;
+  type: string;
+  subject: string;
+  difficulty: string;
+  grade: string;
+  options: string[];
+  answer: string;
+  explanation: string;
 }
 
 interface Homework {
@@ -12,6 +23,7 @@ interface Homework {
   description: string;
   deadline: string;
   status: "draft" | "published";
+  questions?: QuestionDetail[]; // 新增题目列表
 }
 
 interface Exam {
@@ -21,6 +33,7 @@ interface Exam {
   date: string;
   duration: number; // 分钟
   status: "draft" | "published";
+  questions?: QuestionDetail[]; // 考试也可以有题目
 }
 
 interface CourseType {
@@ -33,4 +46,4 @@ interface CourseType {
   createdAt: string;
 }
 
-export type { CourseType, Student, Homework, Exam };
+export type { CourseType, Student, Homework, Exam, QuestionDetail };

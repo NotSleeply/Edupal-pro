@@ -30,7 +30,7 @@ const StudentManagement: React.FC<StudentManagementProps> = ({
             <div>
               <div className="font-medium">{student.name}</div>
               <div className="text-sm text-muted-foreground">
-                学号: {student.studentId} | 邮箱: {student.email}
+               邮箱: {student.email}
               </div>
             </div>
             <Badge variant="secondary">已加入</Badge>

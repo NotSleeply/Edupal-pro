@@ -3,13 +3,13 @@ import {CourseType} from "./types";
 const initialCourses: CourseType[] = [
   {
     id: 1,
-    name: "高等数学",
-    description: "高等数学基础课程，包括微积分、线性代数等内容",
+    name: "快乐编程",
+    description: "翻斗天才小学",
     createdAt: "2024-09-01",
     students: [
-      { id: 1, name: "张三", studentId: "2024001", email: "zhangsan@example.com" },
-      { id: 2, name: "李四", studentId: "2024002", email: "lisi@example.com" },
-      { id: 3, name: "王五", studentId: "2024003", email: "wangwu@example.com" },
+      { id: 1, name: "张悦动", studentId: "2024001", email: "zhangsan@example.com" },
+      { id: 2, name: "马冬梅", studentId: "2024002", email: "lisi@example.com" },
+      { id: 3, name: "夏洛", studentId: "2024003", email: "wangwu@example.com" },
     ],
     homeworks: [
       { 
@@ -21,7 +21,7 @@ const initialCourses: CourseType[] = [
       },
       { 
         id: 2, 
-        title: "微积分作业", 
+        title: "第二章练习", 
         description: "求解给定函数的导数和积分",
         deadline: "2025-10-05", 
         status: "draft" 
@@ -44,8 +44,8 @@ const initialCourses: CourseType[] = [
     description: "C++程序设计基础课程",
     createdAt: "2024-09-01",
     students: [
-      { id: 4, name: "赵六", studentId: "2024004", email: "zhaoliu@example.com" },
-      { id: 5, name: "孙七", studentId: "2024005", email: "sunqi@example.com" },
+      { id: 4, name: "赵启龙", studentId: "2024004", email: "zhaoliu@example.com" },
+      { id: 5, name: "李靖", studentId: "2024005", email: "sunqi@example.com" },
     ],
     homeworks: [
       { 

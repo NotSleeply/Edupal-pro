@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CourseType } from "./types";
+import { CourseType, QuestionDetail } from "./types";
 import { initialCourses } from "./data";
 import CourseSelector from "./CourseSelector";
 import CourseOverview from "./CourseOverview";
@@ -30,20 +30,40 @@ const Course: React.FC = () => {
     );
   };
 
-  // 添加作业
-  const handleAddHomework = (title: string, description: string, deadline: string) => {
+  // 添加作业（支持题目）
+  const handleAddHomework = (title: string, description: string, deadline: string, questions: QuestionDetail[] = []) => {
     if (!selectedCourse) return;
     const newHomework = { 
       id: Date.now(), 
       title, 
       description, 
       deadline, 
-      status: "draft" as const
+      status: "draft" as const,
+      questions // 新增题目列表
     };
     setCourses(cs =>
       cs.map(c =>
         c.id === selectedCourse.id
           ? { ...c, homeworks: [...c.homeworks, newHomework] }
+          : c
+      )
+    );
+  };
+
+  // 发布作业
+  const handlePublishHomework = (homeworkId: number) => {
+    if (!selectedCourse) return;
+    setCourses(cs =>
+      cs.map(c =>
+        c.id === selectedCourse.id
+          ? {
+              ...c,
+              homeworks: c.homeworks.map(hw =>
+                hw.id === homeworkId
+                  ? { ...hw, status: "published" as const }
+                  : hw
+              )
+            }
           : c
       )
     );
@@ -97,6 +117,7 @@ const Course: React.FC = () => {
             <HomeworkManagement
               homeworks={selectedCourse.homeworks}
               onAddHomework={handleAddHomework}
+              onPublishHomework={handlePublishHomework}
             />
           )}
 
