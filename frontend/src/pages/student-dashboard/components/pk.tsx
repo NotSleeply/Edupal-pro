@@ -8,6 +8,7 @@ import PKSummary from './PKSummary';
 import PKResult from './PKResult';
 import PKQuestionPanel from './PKQuestionPanel';
 import PKStartPanel from './PKStartPanel';
+import PKScoreBoard from './PKScoreBoard';
 
 // PK组件
 const PKComponent = () => {
@@ -121,6 +122,7 @@ const PKComponent = () => {
     setWaitingTimer(0);
   };
 
+  
   const getRandomQuestions = (allQuestions: QuestionType[], count: number) => {
     const arr = [...allQuestions];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -188,10 +190,11 @@ const PKComponent = () => {
   };
 
   const simulateOpponentAnswer = () => {
+    const delay = Math.random() * 10000 + 5000;
     setTimeout(() => {
       const opponentCorrect = Math.random() > 0.3;
       if (opponentCorrect) setOpponentScore(prev => prev + 10);
-    }, 1000);
+    }, delay);
   };
 
   const handleNextQuestion = () => {
@@ -317,6 +320,11 @@ const PKComponent = () => {
   // PK答题主界面
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-3xl mx-auto">
+      <PKScoreBoard
+        userScore={userScore}
+        opponentScore={opponentScore}
+        opponent={currentOpponent}
+      />
       <PKQuestionPanel
         question={questions[currentQuestion]}
         userAnswer={userAnswer}
