@@ -17,7 +17,7 @@ const PKMatched: React.FC<PKMatchedProps> = ({ grade, subject, opponent, onReady
           <img src="https://tongque.ocybers.com/img/logo.jpg" alt="你的头像" className="w-full h-full object-cover" />
         </div>
         <p className="text-lg font-bold text-gray-800">你</p>
-        <p className="text-sm text-gray-500">{grade}</p>
+        <p className="text-sm text-gray-500">蒙的都对,考的全会</p>
       </div>
       <div className="text-3xl font-bold text-green-600">VS</div>
       <div className="text-center">
