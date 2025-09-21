@@ -1,13 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { QuestionType } from "../types/types";
+
+const LOCAL_KEY = "course_homework_answers";
 
 interface CourseHomeworkProps {
   questions: QuestionType[];
 }
 
 const CourseHomework: React.FC<CourseHomeworkProps> = ({ questions }) => {
-  const [userAnswers, setUserAnswers] = useState<(string | string[] | null)[]>(Array(questions.length).fill(null));
+  // 初始化时尝试从 localStorage 读取
+  const [userAnswers, setUserAnswers] = useState<(string | string[] | null)[]>(() => {
+    const saved = localStorage.getItem(LOCAL_KEY);
+    if (saved) {
+      try {
+        const arr = JSON.parse(saved);
+        // 保证长度一致
+        if (Array.isArray(arr) && arr.length === questions.length) return arr;
+      } catch {
+        console.warn("无法解析本地存储的作业答案");
+      }
+    }
+    return Array(questions.length).fill(null);
+  });
   const [showResult, setShowResult] = useState(false);
+
+  // 每次作答变化时保存
+  useEffect(() => {
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(userAnswers));
+  }, [userAnswers]);
 
   const handleOption = (idx: number, option: string) => {
     const newAnswers = [...userAnswers];
@@ -35,6 +55,13 @@ const CourseHomework: React.FC<CourseHomeworkProps> = ({ questions }) => {
 
   const handleSubmit = () => {
     setShowResult(true);
+  };
+
+  // 清空作答时也清空 localStorage
+  const handleReset = () => {
+    setShowResult(false);
+    setUserAnswers(Array(questions.length).fill(null));
+    localStorage.removeItem(LOCAL_KEY);
   };
 
   if (questions.length === 0) {
@@ -73,7 +100,7 @@ const CourseHomework: React.FC<CourseHomeworkProps> = ({ questions }) => {
         ))}
         <button
           className="mt-10 px-8 py-3 bg-black text-white rounded-xl w-full text-2xl"
-          onClick={() => { setShowResult(false); setUserAnswers(Array(questions.length).fill(null)); }}
+          onClick={handleReset}
         >
           再做一次
         </button>
