@@ -8,6 +8,7 @@ import Team from "@/pages/dashboard/components/team";
 import Question from "@/pages/dashboard/components/question";
 import Favorites from "@/pages/dashboard/components/favorites";
 import Test from "@/pages/dashboard/components/test";
+import Course from "@/pages/dashboard/components/course";
 export default function DashboardPage() {
   return (
     <div className="flex min-h-screen flex-col">
@@ -32,6 +33,7 @@ export default function DashboardPage() {
               <TabsTrigger value="my-questions">我的问题</TabsTrigger>
               <TabsTrigger value="my-tests">我的试卷</TabsTrigger>
               <TabsTrigger value="favorites">收藏夹</TabsTrigger>
+              <TabsTrigger value="my-courses">我的课程</TabsTrigger>
             </TabsList>
           </div>
           <TabsContent value="overview">
@@ -48,6 +50,9 @@ export default function DashboardPage() {
           </TabsContent>
           <TabsContent value="favorites">
             <Favorites />
+          </TabsContent>
+          <TabsContent value="my-courses">
+            <Course />
           </TabsContent>
         </Tabs>
       </main>

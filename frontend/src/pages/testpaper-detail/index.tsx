@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Brain, Download, FileText, Share } from "lucide-react"
+import { Download, FileText, Share } from "lucide-react"
 
 export default function TestPaperPage({ params }) {
   // 这里通常会根据 ID 获取试卷数据
