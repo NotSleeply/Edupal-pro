@@ -9,11 +9,6 @@ interface PKWaitingOpponentProps {
 const PKWaitingOpponent: React.FC<PKWaitingOpponentProps> = ({ opponent, waitingTimer }) => (
   <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-2xl mx-auto text-center">
     <h2 className="text-2xl font-bold mb-6 text-gray-800">等待对手准备...</h2>
-    <div className="mb-6">
-      <div className="inline-block animate-pulse">
-        <div className="w-16 h-16 rounded-full bg-blue-200 mx-auto mb-4"></div>
-      </div>
-    </div>
     <div className="flex justify-center items-center gap-6 mb-6">
       <div className="text-center">
         <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-green-500 mx-auto mb-2">
