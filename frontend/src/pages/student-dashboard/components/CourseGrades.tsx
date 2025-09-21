@@ -10,7 +10,7 @@ const CourseGrades: React.FC = () => (
         <tr>
           <th className="py-2 px-4 border-b text-left">排名</th>
           <th className="py-2 px-4 border-b text-left">姓名</th>
-          <th className="py-2 px-4 border-b text-left">成绩</th>
+          <th className="py-2 px-4 border-b text-left">积分</th>
         </tr>
       </thead>
       <tbody>
