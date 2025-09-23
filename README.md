@@ -1,8 +1,11 @@
-# Edupal · AI 题目生成与智能刷题平台
+# Edupal-pro · AI 题目生成与智能刷题平台
 
- 本项目是我的本科毕业设计，旨在打造一个基于大语言模型（LLM）的智能刷题平台，支持题目生成、智能批阅、在线练习和一键组卷，预计应用前景为帮助学生更好的学习（仅预计）。
+旨在打造一个基于大语言模型（LLM）的智能刷题平台，支持题目生成、智能批阅、在线练习和一键组卷，预计应用前景为帮助学生更好的学习（仅预计）。
 
->  在线演示：[edupal.ocybers.com](http://edupal.ocybers.com)
+# 特别声明
+
+- 本项目基于 [tongque0](https://github.com/tongque0) 的开源项目进行改进，仅用于学习、交流与技术研究，不得用于任何商业用途。如有侵权或其他问题，请及时联系作者处理。
+- 原项目地址：[Edupal · AI 题目生成与智能刷题平台](https://github.com/tongque0/edupal-pro)。
 
 ## ✨ 项目亮点
 
@@ -21,10 +24,6 @@
 | 中间件 | RabbitMQ、MySQL 8.0、Agent（Golang） |
 | 容器化 | Docker + Docker Compose |
 | 说明 | 我们不被允许使用golang来完成毕设，故是python版本 |
-
-## 📽️ 演示视频
-
-[点击查看视频](https://github.com/user-attachments/assets/7b8424c8-80ba-489a-b654-25db646f3c1b)
 
 ## ⚙️ 快速开始
 
@@ -49,11 +48,6 @@ make prod
 
 > ⚠ 若未正确配置 dockercompose环境变量 ，部分功能（如生成题目 / 判题）将不可用。
 
-## 声明
-
-本项目中存在第三方apikey，我并未隐藏，因为并没有充值多少，如果需要使用，请使用自己的key，且演示站皆使用默认环境，请勿随意渗透。
-
 ## 开源协议
 
 本项目仅供学习与展示使用，具体协议请查看 [LICENSE](./LICENSE) 文件。
-
