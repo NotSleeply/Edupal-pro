@@ -23,7 +23,6 @@
 | 后端 | FastAPI（Python） |
 | 中间件 | RabbitMQ、MySQL 8.0、Agent（Golang） |
 | 容器化 | Docker + Docker Compose |
-| 说明 | 我们不被允许使用golang来完成毕设，故是python版本 |
 
 ## ⚙️ 快速开始
 
